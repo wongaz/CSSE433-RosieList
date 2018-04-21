@@ -30,6 +30,7 @@ def bigtable_test1():
         row_key = 'test_c{}'.format(i)
         table.put(row_key, {column_name: value})
     connection.close()
+    return 0
 
 def bigtable_test2():
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "key.json"
@@ -62,7 +63,7 @@ def bigtable_test3():
     connection.delete_table(table_name)
 
     connection.close()
-
+    return 0
 
 
 

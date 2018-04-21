@@ -23,10 +23,14 @@ def dataflow_test(_):
     print('retrive value from cache server...')
     print('get result: ' + result.decode("utf-8"))
     print('----------------------------------------')
-    q.enqueue(bigtable_test1)
-    sleep(5)
+    job = q.enqueue(bigtable_test1)
+    while job is None:
+        continue
     bigtable_test2()
-    q.enqueue(bigtable_test3)
+    job = q.enqueue(bigtable_test3)
+    while job is None:
+        continue
+    print('bigtable test done')
 
 
 def cache_flushall(_):
