@@ -3,7 +3,6 @@ from csv import reader
 import pickle
 pickle.HIGHEST_PROTOCOL = 2
 from rq import Queue
-from time import sleep
 from bigtable_funcs import *
 from neo4j_funcs import *
 
