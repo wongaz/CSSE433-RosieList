@@ -13,7 +13,7 @@ def neo4j_test1():
 
 def neo4j_test2():
     db = GraphDatabase("http://433-18.csse.rose-hulman.edu:7474", username="neo4j", password="csse433")
-    q = 'MATCH (u:Test)-[r:tt]->(m:Tests) WHERE u.name="test" RETURN u, type(r), m'
+    q = 'MATCH (u:Test)-[r:tt]->(m:Test2) WHERE u.name="test" RETURN u, type(r), m'
     results = db.query(q, returns=(client.Node, str, client.Node))
     for r in results:
         print("(%s)-[%s]->(%s)" % (r[0]["name"], r[1], r[2]["name"]))
