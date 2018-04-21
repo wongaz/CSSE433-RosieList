@@ -38,9 +38,9 @@ def dataflow_test(_):
     while job.result is None:
         continue
     neo4j_test2()
-    # job = q.enqueue(neo4j_test3)
-    # while job.result is None:
-    #     continue
+    job = q.enqueue(neo4j_test3)
+    while job.result is None:
+        continue
     print('neo4j test done')
 
 def cache_flushall(_):
