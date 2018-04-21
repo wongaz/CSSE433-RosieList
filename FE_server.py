@@ -34,7 +34,7 @@ def dataflow_test(_):
     #     continue
     # print('bigtable test done')
     print('----------------------------------------')
-    job = q.enqueue(neo4j_test1())
+    job = q.enqueue(neo4j_test1)
     while job.result is None:
         continue
     neo4j_test2()
