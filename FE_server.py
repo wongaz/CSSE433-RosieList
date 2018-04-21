@@ -17,22 +17,22 @@ q = Queue(connection=queue_conn)
 #########interface functionality#########################
 
 def dataflow_test(_):
-    # cache_conn.set('test', 'cache_write')
-    # print('write to cache server...')
-    # result = cache_conn.get('test')
-    # print('retrive value from cache server...')
-    # print('get result: ' + result.decode("utf-8"))
-    # cache_flushall([])
-    # print('cache server test done')
-    # print('----------------------------------------')
-    # job = q.enqueue(bigtable_test1)
-    # while job.result is None:
-    #     continue
-    # bigtable_test2()
-    # job = q.enqueue(bigtable_test3)
-    # while job.result is None:
-    #     continue
-    # print('bigtable test done')
+    cache_conn.set('test', 'cache_write')
+    print('write to cache server...')
+    result = cache_conn.get('test')
+    print('retrive value from cache server...')
+    print('get result: ' + result.decode("utf-8"))
+    cache_flushall([])
+    print('cache server test done')
+    print('----------------------------------------')
+    job = q.enqueue(bigtable_test1)
+    while job.result is None:
+        continue
+    bigtable_test2()
+    job = q.enqueue(bigtable_test3)
+    while job.result is None:
+        continue
+    print('bigtable test done')
     print('----------------------------------------')
     job = q.enqueue(neo4j_test1)
     while job.result is None:
