@@ -13,7 +13,7 @@ def remote_reset(conn):
     if has_table(user_table, conn):
         conn.disable_table(user_table)
         conn.delete_table(user_table)
-        conn.create_table(user_table,
+    conn.create_table(user_table,
                           {'Key': dict(),
                            'Bio': dict(),
                            'Transactions': dict(),
@@ -22,7 +22,7 @@ def remote_reset(conn):
     if has_table(transaction_table, conn):
         conn.disable_table(transaction_table)
         conn.delete_table(transaction_table)
-        conn.create_table(
+    conn.create_table(
             transaction_table,
             {'Key': dict(),
              'Users': dict(),
@@ -32,7 +32,7 @@ def remote_reset(conn):
     if has_table(product_table, conn):
         conn.disable_table(product_table)
         conn.delete_table(product_table)
-        conn.create_table(
+    conn.create_table(
             product_table,
             {'Key': dict(),
              'Info': dict(),
@@ -42,7 +42,7 @@ def remote_reset(conn):
     if has_table(ride_table, conn):
         conn.disable_table(ride_table)
         conn.delete_table(ride_table)
-        conn.create_table(
+    conn.create_table(
             ride_table,
             {'Key': dict(),
              'Users': dict(),
@@ -52,7 +52,7 @@ def remote_reset(conn):
     if has_table(review_table, conn):
         conn.disable_table(review_table)
         conn.delete_table(review_table)
-        conn.create_table(
+    conn.create_table(
             review_table,
             {'Key': dict(),
              'Users': dict(),
@@ -62,7 +62,7 @@ def remote_reset(conn):
     if has_table(tag_table, conn):
         conn.disable_table(tag_table)
         conn.delete_table(tag_table)
-        conn.create_table(
+    conn.create_table(
             tag_table,
             {'Key': dict(),
              'Info': dict(),
