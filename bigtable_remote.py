@@ -18,6 +18,7 @@ def remote_reset(conn):
                            'Transactions': dict(),
                            }
                           )
+    print('user table')
     if has_table(transaction_table, conn):
         conn.delete_table(transaction_table)
     conn.create_table(
@@ -27,6 +28,7 @@ def remote_reset(conn):
              'Product': dict(),
              }
         )
+    print('transaction table')
     if has_table(product_table, conn):
         conn.delete_table(product_table)
     conn.create_table(
@@ -36,6 +38,7 @@ def remote_reset(conn):
              'Tags': dict(),
              }
         )
+    print('product table')
     if has_table(ride_table, conn):
         conn.delete_table(ride_table)
     conn.create_table(
@@ -45,6 +48,7 @@ def remote_reset(conn):
              'Info': dict(),
              }
         )
+    print('review table')
     if has_table(review_table, conn):
         conn.delete_table(review_table)
     conn.create_table(
@@ -54,6 +58,7 @@ def remote_reset(conn):
              'Info': dict(),
              }
         )
+    print('tag table')
     if has_table(tag_table, conn):
         conn.delete_table(tag_table)
     conn.create_table(
