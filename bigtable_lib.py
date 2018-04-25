@@ -8,6 +8,10 @@ from rq import Queue
 queue_conn = redis.StrictRedis(host='433-19.csse.rose-hulman.edu', port=6379, db=0)
 q = Queue(connection=queue_conn)
 
+def clear():
+    job = q.enqueue(remote_clear)
+    while job.result is None:
+        continue
 
 def reset():
     job = q.enqueue(remote_reset)
@@ -68,7 +72,9 @@ def add_user(conn):
     if email == "":
         print("Must enter an email")
         return
-    q.enqueue(create_user, user, f_name, l_name, email)
+    job =q.enqueue(create_user, user, f_name, l_name, email)
+    while job.result is None:
+        continue
 
 @connect
 def add_transaction(conn):
@@ -99,7 +105,9 @@ def add_transaction(conn):
     if not has_row(pid, product_table,conn):
         print("Product does not exist in database")
         return
-    q.enqueue(create_transaction, tid, buyer, seller, pid)
+    job =  q.enqueue(create_transaction, tid, buyer, seller, pid)
+    while job.result is None:
+        continue
 
 
 @connect
@@ -160,7 +168,9 @@ def add_product(conn):
     if price == "":
         print("Must enter a price")
         return
-    q.enqueue(create_product, pid, name, desc, tags, price)
+    job = q.enqueue(create_product, pid, name, desc, tags, price)
+    while job.result is None:
+        continue
 
 
 @connect
@@ -224,7 +234,9 @@ def add_ride(conn):
     if price == "":
         print("Must enter a price for the ride")
         return
-    q.enqueue(create_ride, rid, driver, rider, dest, miles, price)
+    job= q.enqueue(create_ride, rid, driver, rider, dest, miles, price)
+    while job.result is None:
+        continue
 
 
 @connect
@@ -280,7 +292,9 @@ def add_review(conn):
     if contents == "":
         print("Must enter contents for review")
         return
-    q.enqueue(create_review, rvid, patron, provider, contents)
+    job = q.enqueue(create_review, rvid, patron, provider, contents)
+    while job.result is None:
+        continue
 
 
 @connect
@@ -319,7 +333,9 @@ def add_tag(conn):
     if name == "":
         print("Must enter name for tag")
         return
-    q.enqueue(create_tag, tgid, name)
+    job = q.enqueue(create_tag, tgid, name)
+    while job.result is None:
+        continue
 
 
 @connect
