@@ -5,8 +5,7 @@ import redis
 
 pickle.HIGHEST_PROTOCOL = 2
 from rq import Queue
-from bigtable_funcs import *
-from retired.neo4j_funcs import *
+from neo4j_funcs import *
 
 ##############connection setup####################################
 
@@ -16,7 +15,7 @@ q = Queue(connection=queue_conn)
 
 
 
-#########interface functionality######################### 
+#########interface functionality#########################
 
 def dataflow_test(_):
     cache_conn.set('test', 'cache_write')
@@ -26,15 +25,6 @@ def dataflow_test(_):
     print('get result: ' + result.decode("utf-8"))
     cache_flushall([])
     print('cache server test done')
-    print('----------------------------------------')
-    job = q.enqueue(bigtable_test1)
-    while job.result is None:
-        continue
-    bigtable_test2()
-    job = q.enqueue(bigtable_test3)
-    while job.result is None:
-        continue
-    print('bigtable test done')
     print('----------------------------------------')
     job = q.enqueue(neo4j_test1)
     while job.result is None:
