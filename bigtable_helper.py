@@ -13,7 +13,7 @@ def has_table(name_of_table, conn):
 def convert_string_to_array(inputString):
     if inputString == "":
         return []
-    result = inputString.split("|")
+    result = inputString.decode('utf-8').split("|")
     return result
 
 
