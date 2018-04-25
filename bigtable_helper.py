@@ -1,7 +1,7 @@
+from __future__ import print_function
 import os
 from google.cloud import bigtable
 from google.cloud import happybase
-from __future__ import print_function
 
 
 def has_table(name_of_table, conn):
