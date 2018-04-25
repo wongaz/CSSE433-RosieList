@@ -18,7 +18,7 @@ def reset():
 @connect
 def display_users(conn):
     print(conn.tables())
-    if not has_table(user_table):
+    if not has_table(user_table,conn):
         print("User table does not exist")
         return
     table = conn.table(user_table)
@@ -43,11 +43,11 @@ def display_users(conn):
     print_array("Products Offered", products)
     print_array("Reviews", reviews)
 
-
-def add_user():
+@connect
+def add_user(conn):
     print('Enter username')
     user = input()
-    if has_row(user, user_table):
+    if has_row(user, user_table, conn):
         print("Username already in database")
         return
     if user == "":
@@ -70,11 +70,11 @@ def add_user():
         return
     q.enqueue(create_user, (user, f_name, l_name, email))
 
-
-def add_transaction():
+@connect
+def add_transaction(conn):
     print('Enter Transaction Id')
     tid = input()
-    if has_row(tid, transaction_table):
+    if has_row(tid, transaction_table,conn):
         print("Transaction ID already in database")
         return
     if tid == "":
@@ -82,12 +82,12 @@ def add_transaction():
         return
     print('Enter username of buyer')
     buyer = input()
-    if not has_row(buyer, user_table):
+    if not has_row(buyer, user_table,conn):
         print("Buyer does not exist in database")
         return
     print('Enter username of seller')
     seller = input()
-    if not has_row(seller, user_table):
+    if not has_row(seller, user_table,conn):
         print("Seller does not exist in database")
         return
     if buyer == seller:
@@ -96,7 +96,7 @@ def add_transaction():
     print('Enter Product ID')
     pid = input()
     # TODO Add in caveat of player owning product
-    if not has_row(pid, product_table):
+    if not has_row(pid, product_table,conn):
         print("Product does not exist in database")
         return
     q.enqueue(create_transaction, (tid, buyer, seller, pid))
@@ -104,14 +104,14 @@ def add_transaction():
 
 @connect
 def display_transaction(conn):
-    if not has_table(transaction_table):
+    if not has_table(transaction_table,conn):
         print("Transaction table does not exist")
         return
     table = conn.table(transaction_table)
     print('Enter Transaction ID')
     tid = input()
     row = table.row(tid)
-    if not has_row(tid, transaction_table):
+    if not has_row(tid, transaction_table,conn):
         print("Transaction ID not in database")
         return
     print("Transaction ID:", end=' ')
@@ -123,11 +123,11 @@ def display_transaction(conn):
     print("Product ID:", end=' ')
     print((row[b'Product:PID']))
 
-
-def add_product():
+@connect
+def add_product(conn):
     print('Enter Product ID')
     pid = input()
-    if has_row(pid, product_table):
+    if has_row(pid, product_table,conn):
         print("Product ID already in database")
         return
     if pid == "":
@@ -151,7 +151,7 @@ def add_product():
         if tag == "":
             finished_tags = 1
         else:
-            if not has_row(tag, tag_table):
+            if not has_row(tag, tag_table,conn):
                 print("Tag does not exist in database")
             else:
                 tags.append(tag)
@@ -165,14 +165,14 @@ def add_product():
 
 @connect
 def display_product(conn):
-    if not has_table(product_table):
+    if not has_table(product_table,conn):
         print("Product table does not exist")
         return
     table = conn.table(product_table)
     print('Enter Product ID')
     pid = input()
     row = table.row(pid)
-    if not has_row(pid, product_table):
+    if not has_row(pid, product_table,conn):
         print("Product ID not in database")
         return
     print("Product ID:", end=' ')
@@ -186,11 +186,11 @@ def display_product(conn):
     tags = convert_string_to_array(row[b'Tags:tags'])
     print_array("Tags", tags)
 
-
-def add_ride():
+@connect
+def add_ride(conn):
     print('Enter Ride ID')
     rid = input()
-    if has_row(rid, ride_table):
+    if has_row(rid, ride_table,conn):
         print("Ride ID already in database")
         return
     if rid == "":
@@ -198,12 +198,12 @@ def add_ride():
         return
     print('Enter username of driver')
     driver = input()
-    if not has_row(driver, user_table):
+    if not has_row(driver, user_table,conn):
         print("Driver does not exist in database")
         return
     print('Enter username of rider')
     rider = input()
-    if not has_row(rider, user_table):
+    if not has_row(rider, user_table,conn):
         print("Rider does not exist in database")
         return
     if driver == rider:
@@ -229,14 +229,14 @@ def add_ride():
 
 @connect
 def display_ride(conn):
-    if not has_table(ride_table):
+    if not has_table(ride_table,conn):
         print("Ride table does not exist")
         return
     table = conn.table(ride_table)
     print('Enter Ride ID')
     rid = input()
     row = table.row(rid)
-    if not has_row(rid, ride_table):
+    if not has_row(rid, ride_table,conn):
         print("Ride ID not in database")
         return
     print("Ride ID:", end=' ')
@@ -252,11 +252,11 @@ def display_ride(conn):
     print("Price:", end=' ')
     print((row[b'Info:price']))
 
-
-def add_review():
+@connect
+def add_review(conn):
     print('Enter Review ID')
     rvid = input()
-    if has_row(rvid, review_table):
+    if has_row(rvid, review_table,conn):
         print("Review ID already in database")
         return
     if rvid == "":
@@ -264,12 +264,12 @@ def add_review():
         return
     print('Enter username of Reviewer')
     patron = input()
-    if not has_row(patron, user_table):
+    if not has_row(patron, user_table,conn):
         print("Reviewer does not exist in database")
         return
     print('Enter username of the reviewed')
     provider = input()
-    if not has_row(provider, user_table):
+    if not has_row(provider, user_table,conn):
         print("Reviewed user does not exist in database")
         return
     if patron == provider:
@@ -285,14 +285,14 @@ def add_review():
 
 @connect
 def display_review(conn):
-    if not has_table(review_table):
+    if not has_table(review_table,conn):
         print("Review table does not exist")
         return
     table = conn.table(review_table)
     print('Enter Review ID')
     rvid = input()
     row = table.row(rvid)
-    if not has_row(rvid, review_table):
+    if not has_row(rvid, review_table,conn):
         print("Review ID not in database")
         return
     print("Review ID:", end=' ')
@@ -304,11 +304,11 @@ def display_review(conn):
     print("Review Contents:", end=' ')
     print((row[b'Info:contents']))
 
-
-def add_tag():
+@connect
+def add_tag(conn):
     print('Enter Tag ID')
     tgid = input()
-    if has_row(tgid, tag_table):
+    if has_row(tgid, tag_table,conn):
         print("Tag ID already in database")
         return
     if tgid == "":
@@ -324,14 +324,14 @@ def add_tag():
 
 @connect
 def display_tag(conn):
-    if not has_table(tag_table):
+    if not has_table(tag_table,conn):
         print("Tag table does not exist")
         return
     table = conn.table(tag_table)
     print('Enter Tag ID')
     tgid = input()
     row = table.row(tgid)
-    if not has_row(tgid, tag_table):
+    if not has_row(tgid, tag_table,conn):
         print("Tag ID not in database")
         return
     print("Tag ID:", end=' ')
