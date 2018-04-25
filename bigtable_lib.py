@@ -35,7 +35,7 @@ def display_users(conn):
     print("Username:", end=' ')
     print((row[b'Key:user']))
     print("Name:", end=' ')
-    print((row[b'Bio:lName'] + ", " + row[b'Bio:fName']))
+    print((row[b'Bio:lName'] + ", ".encode('utf-8') + row[b'Bio:fName']))
     print("Email:", end=' ')
     print((row[b'Bio:email']))
     t_history = convert_string_to_array(row[b'Transactions:t_history'])
