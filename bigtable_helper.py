@@ -2,6 +2,7 @@ from __future__ import print_function
 import os
 from google.cloud import bigtable
 from google.cloud import happybase
+from functools import wraps
 
 
 def has_table(name_of_table, conn):
@@ -40,7 +41,8 @@ def convert_array_to_string(array):
 
 
 def connect(func):
-    def function_wrapper2(*args, **kwargs):
+    @wraps(func)
+    def function_wrapper(*args, **kwargs):
         os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "key.json"
         project_id = "csse433-adb-201117"
         instance_id = "project433"
@@ -53,4 +55,4 @@ def connect(func):
         connection.close()
         return 0
 
-    return function_wrapper2
+    return function_wrapper
