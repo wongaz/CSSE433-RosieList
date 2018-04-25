@@ -20,7 +20,7 @@ while True:
     print("R - Reset")
     print("q - Quit")
     command = input()
-    func_dicy = {'1': display_users,
+    func_dict = {'1': display_users,
                  '2': add_user,
                  '3': display_transaction,
                  '4': add_transaction,
@@ -37,7 +37,7 @@ while True:
     if command == 'q':
         break
     else:
-        func = dict.get(command)
+        func = func_dict[command]
         if func is None:
             continue
         func()
