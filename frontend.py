@@ -18,7 +18,7 @@ while True:
     print("11 - Display Tag")
     print("12 - Add Tag")
     print("R - Reset")
-    print("C - Clear")
+    print("D - Delete")
     print("q - Quit")
     command = input()
     func_dict = {'1': display_users,
@@ -34,7 +34,7 @@ while True:
                  '11': display_tag,
                  '12': add_tag,
                  'R': reset,
-                 'C': clear}
+                 'D': clear}
 
     if command == 'q':
         break

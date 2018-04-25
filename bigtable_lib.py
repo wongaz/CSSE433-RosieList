@@ -28,7 +28,7 @@ def display_users(conn):
     table = conn.table(user_table)
     print('Enter Username')
     user = input()
-    row = table.row(user)
+    row = table.row(user.encode('utf-8'))
     if not has_row(user, user_table, conn):
         print("Username not in database")
         return
