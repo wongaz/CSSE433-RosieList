@@ -19,7 +19,7 @@ def convert_string_to_array(inputString):
 
 def has_row(name_of_row, name_of_table, conn):
     table = conn.table(name_of_table)
-    row = table.row(name_of_row)
+    row = table.row(name_of_row.encode('utf-8'))
     return any(row)
 
 

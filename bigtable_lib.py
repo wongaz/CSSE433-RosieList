@@ -118,7 +118,7 @@ def display_transaction(conn):
     table = conn.table(transaction_table)
     print('Enter Transaction ID')
     tid = input()
-    row = table.row(tid)
+    row = table.row(tid.encode('utf-8'))
     if not has_row(tid, transaction_table,conn):
         print("Transaction ID not in database")
         return
@@ -181,7 +181,7 @@ def display_product(conn):
     table = conn.table(product_table)
     print('Enter Product ID')
     pid = input()
-    row = table.row(pid)
+    row = table.row(pid.encode('utf-8'))
     if not has_row(pid, product_table,conn):
         print("Product ID not in database")
         return
@@ -247,7 +247,7 @@ def display_ride(conn):
     table = conn.table(ride_table)
     print('Enter Ride ID')
     rid = input()
-    row = table.row(rid)
+    row = table.row(rid.encode('utf-8'))
     if not has_row(rid, ride_table,conn):
         print("Ride ID not in database")
         return
@@ -305,7 +305,7 @@ def display_review(conn):
     table = conn.table(review_table)
     print('Enter Review ID')
     rvid = input()
-    row = table.row(rvid)
+    row = table.row(rvid.encode('utf-8'))
     if not has_row(rvid, review_table,conn):
         print("Review ID not in database")
         return
@@ -346,7 +346,7 @@ def display_tag(conn):
     table = conn.table(tag_table)
     print('Enter Tag ID')
     tgid = input()
-    row = table.row(tgid)
+    row = table.row(tgid.encode('utf-8'))
     if not has_row(tgid, tag_table,conn):
         print("Tag ID not in database")
         return
