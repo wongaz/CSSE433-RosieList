@@ -1,10 +1,12 @@
-import redis
-from csv import reader
 import pickle
+from csv import reader
+
+import redis
+
 pickle.HIGHEST_PROTOCOL = 2
 from rq import Queue
 from bigtable_funcs import *
-from neo4j_funcs import *
+from retired.neo4j_funcs import *
 
 ##############connection setup####################################
 
