@@ -40,7 +40,7 @@ def convert_array_to_string(array):
 
 
 def connect(func):
-    def function_wrapper(*args, **kwargs):
+    def function_wrapper2(*args, **kwargs):
         os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "key.json"
         project_id = "csse433-adb-201117"
         instance_id = "project433"
