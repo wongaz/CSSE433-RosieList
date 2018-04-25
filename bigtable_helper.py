@@ -53,4 +53,4 @@ def connect(func):
         connection.close()
         return 0
 
-    return function_wrapper
+    return function_wrapper2
