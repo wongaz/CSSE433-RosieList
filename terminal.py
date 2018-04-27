@@ -60,8 +60,20 @@ def displayUsers():
     reviews = convertStringToArray(row[b'Transactions:reviews'])
     printArray("Transaction History", tHistory)
     printArray("Rides History", rHistory)
-    printArray("Products Offered", products)
+    printProductArray(products)
     printArray("Reviews", reviews)
+
+def printProductArray(pidList):
+    pTable = connection.table(productTable)
+    attribute = "Products offered"
+    if(len(pidList) == 0):
+        print attribute + ": None"
+    else:
+        print attribute + ":",
+        for pid in pidList:
+            pRow = pTable.row(pid)
+            print (pRow[b'Info:name']) + "(" + pid + ")" + ",",
+        print ""
 
 
 def addUser():   
