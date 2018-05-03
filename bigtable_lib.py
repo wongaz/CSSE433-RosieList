@@ -1,9 +1,12 @@
 from bigtable_remote import *
-import redis
 import pickle
-
+from redis_lib import *
+import neo4j_lib
 pickle.HIGHEST_PROTOCOL = 2
 from rq import Queue
+
+
+import datetime
 
 queue_conn = redis.StrictRedis(host='433-19.csse.rose-hulman.edu', port=6379, db=0)
 q = Queue(connection=queue_conn)
@@ -105,9 +108,12 @@ def add_transaction(conn):
     if not has_row(pid, product_table,conn):
         print("Product does not exist in database")
         return
+
     job =  q.enqueue(create_transaction, tid, buyer, seller, pid)
     while job.result is None:
         continue
+    if write_transactions(buyer,seller,tid+"|"+buyer+"|"+seller+"|"+pid+"|"+str(datetime.datetime.now()))==1:
+        print("Cannot cache transaction right now")
 
 
 @connect
@@ -171,6 +177,14 @@ def add_product(conn):
     job = q.enqueue(create_product, pid, name, desc, tags, price)
     while job.result is None:
         continue
+    job = q.enqueue(neo4j_lib.add_product, pid, name, desc, tags, price)
+    while job.result is None:
+        continue
+    if job.result ==1:
+        print("Product is not saved in Neo4j")
+    if job.result ==2:
+        print("At least one tag is not mapped to Product in Neo4j")
+
 
 
 @connect
@@ -336,6 +350,13 @@ def add_tag(conn):
     job = q.enqueue(create_tag, tgid, name)
     while job.result is None:
         continue
+
+    job = q.enqueue(neo4j_lib.add_tag, tgid, name)
+    while job.result is None:
+        continue
+    if job.result ==1:
+        print("Tag is not saved in Neo4j")
+
 
 
 @connect
