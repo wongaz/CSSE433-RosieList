@@ -34,5 +34,5 @@ def get_recom():
     ls = []
     for record in result:
         ls.append(record['n2.pid'])
-    return ls
+    print(ls)
 
