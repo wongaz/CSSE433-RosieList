@@ -2,4 +2,3 @@ redis
 rq
 google-cloud-happybase
 neo4j-driver
-neo4jrestclient

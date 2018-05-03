@@ -1,5 +1,5 @@
 from bigtable_lib import *
-
+from redis_lib import *
 # Main
 
 
@@ -17,7 +17,9 @@ while True:
     print("10 - Add Review")
     print("11 - Display Tag")
     print("12 - Add Tag")
+    print("13 - Display Transaction by Username(From Cache Server)")
     print("R - Reset")
+    print("RR - Reset Redis")
     print("D - Delete")
     print("q - Quit")
     command = input()
@@ -33,8 +35,10 @@ while True:
                  '10': add_review,
                  '11': display_tag,
                  '12': add_tag,
+                 '13': get_trans_from_cache,
                  'R': reset,
-                 'D': clear}
+                 'D': clear,
+                 'RR':cache_flushall}
 
     if command == 'q':
         break
