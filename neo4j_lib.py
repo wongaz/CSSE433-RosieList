@@ -11,7 +11,7 @@ def add_product(pid,name,desc,tags,price):
     if product != pid:
         return 1
     for tag in tags:
-        c = "MATCH (a:Product),(b:Tag) WHERE a.pid = '{}' AND b.tgid = '{}' CREATE (a)-[r:Have]-(b) RETURN type(r)".format(product,tag)
+        c = "MATCH (a:Product),(b:Tag) WHERE a.pid = '{}' AND b.tgid = '{}' CREATE (a)-[r:Have]->(b) RETURN type(r)".format(product,tag)
         result = run_command(c)
         for record in result:
             if record['type(r)'] != 'Have':
