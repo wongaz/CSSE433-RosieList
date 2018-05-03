@@ -16,6 +16,7 @@ def add_product(pid,name,desc,tags,price):
         for record in result:
             if record['type(r)'] != 'Have':
                 return 2
+    return 0
 
 def add_tag(tgid,name):
     tag = "t:Tag {{tgid:'{0}',name:'{1}'}}".format(tgid,name)
@@ -24,4 +25,14 @@ def add_tag(tgid,name):
     for record  in result:
         return record['t.tgid']
     return 1
+
+
+def get_recom():
+    pid= input("What is the pid you prefer?")
+    command = "match (n:Product) -[r:Have]-(t:Tag)-[r2:Have]-(n2:Product) where n.pid='{}' return n2.pid".format(pid)
+    result = run_command(command)
+    ls = []
+    for record in result:
+        ls.append(record['n2.pid'])
+    return ls
 

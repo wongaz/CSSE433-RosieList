@@ -1,5 +1,6 @@
 from bigtable_lib import *
 from redis_lib import *
+from neo4j_lib import get_recom
 # Main
 
 
@@ -18,6 +19,7 @@ while True:
     print("11 - Display Tag")
     print("12 - Add Tag")
     print("13 - Display Transaction by Username(From Cache Server)")
+    print("14 - Get Recommend Product")
     print("R - Reset")
     print("RR - Reset Redis")
     print("D - Delete")
@@ -36,6 +38,7 @@ while True:
                  '11': display_tag,
                  '12': add_tag,
                  '13': get_trans_from_cache,
+                 '14': get_recom,
                  'R': reset,
                  'D': clear,
                  'RR':cache_flushall}
