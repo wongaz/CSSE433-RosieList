@@ -2,9 +2,10 @@ from bigtable_remote import *
 import pickle
 from redis_lib import *
 import neo4j_lib
+pickle.HIGHEST_PROTOCOL = 2
 from rq import Queue
 import datetime
-pickle.HIGHEST_PROTOCOL = 2
+
 
 queue_conn = redis.StrictRedis(host='433-19.csse.rose-hulman.edu', port=6379, db=0)
 q = Queue(connection=queue_conn)
