@@ -2,19 +2,19 @@ from bigtable_remote import *
 import pickle
 from redis_lib import *
 import neo4j_lib
-pickle.HIGHEST_PROTOCOL = 2
 from rq import Queue
-
-
 import datetime
+pickle.HIGHEST_PROTOCOL = 2
 
 queue_conn = redis.StrictRedis(host='433-19.csse.rose-hulman.edu', port=6379, db=0)
 q = Queue(connection=queue_conn)
+
 
 def clear():
     job = q.enqueue(remote_clear)
     while job.result is None:
         continue
+
 
 def reset():
     job = q.enqueue(remote_reset)
@@ -49,6 +49,7 @@ def display_users(conn):
     print_array("Rides History", r_history)
     print_array("Products Offered", products)
     print_array("Reviews", reviews)
+
 
 @connect
 def add_user(conn):

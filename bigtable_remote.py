@@ -7,6 +7,7 @@ review_table = 'Rosie-List-Reviews'
 product_table = 'Rosie-List-Products'
 tag_table = 'Rosie-List-Tags'
 
+
 @connect
 def remote_clear(conn):
     if has_table(user_table, conn):
@@ -21,6 +22,7 @@ def remote_clear(conn):
         conn.delete_table(review_table)
     if has_table(tag_table, conn):
         conn.delete_table(tag_table)
+
 
 @connect
 def remote_reset(conn):

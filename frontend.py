@@ -1,9 +1,8 @@
 from bigtable_lib import *
 from redis_lib import *
 from neo4j_lib import get_recom
+
 # Main
-
-
 while True:
     print("Enter a command:")
     print("1 - Display Users")
@@ -41,7 +40,7 @@ while True:
                  '14': get_recom,
                  'R': reset,
                  'D': clear,
-                 'RR':cache_flushall}
+                 'RR': cache_flushall}
 
     if command == 'q':
         break
