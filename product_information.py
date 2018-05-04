@@ -1,4 +1,5 @@
 from terminal_helper import *
+from local_redis import *
 import happybase
 #Curtis Local machine
 connection = happybase.Connection('dhcp-137-112-104-218.rose-hulman.edu', 9090) 
@@ -211,6 +212,8 @@ def buyProduct(user):
             tid = ""
     createTransaction(tid, user, seller, pid)
     addTransactionToUsers(user, seller, tid)
+    write_history(seller, 't' + tid)
+    write_history(user, 't' + tid)  
 
 def productTerminal(user):
     persist = 1

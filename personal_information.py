@@ -1,4 +1,5 @@
 from terminal_helper import *
+from local_redis import *
 import happybase
 #Curtis Local machine
 connection = happybase.Connection('dhcp-137-112-104-218.rose-hulman.edu', 9090) 
@@ -150,6 +151,7 @@ def personalTerminal(user):
         print "5 - List Rides"
         print "6 - Delete Rides"
         print "7 - List reviews"
+        print "8 - Print history"
         print "q - Return to root menu"
         command = raw_input()
         if command == '1':
@@ -172,6 +174,11 @@ def personalTerminal(user):
 
         if command == '7':
             listReviews(user)
+
+        if command == '8':
+            history = read_history(user)
+            for data in history:
+                print data
 
         if command == 'q':
             persist = 0

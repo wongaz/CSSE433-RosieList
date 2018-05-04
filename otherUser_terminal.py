@@ -1,4 +1,5 @@
 from terminal_helper import *
+from local_redis import *
 import happybase
 #Curtis Local machine
 connection = happybase.Connection('dhcp-137-112-104-218.rose-hulman.edu', 9090) 
@@ -96,10 +97,13 @@ def registerRide(user, loggedInUser):
         print "Must enter a price for the ride"
         return
     createRide(rid, driver, rider, dest, miles, price)
-    addRideToUsers(driver, rider, rid)   
+    addRideToUsers(driver, rider, rid) 
+    write_history(loggedInUser, 'r' + rid)
+    write_history(user, 'r' + rid)  
 
 def otherUserTerminal(user, loggedInUser):
     persist = 1
+    write_history(loggedInUser, 'u' + user)
     while(persist == 1):
         print "Enter a command:"
         print "1 - Print Bio"
