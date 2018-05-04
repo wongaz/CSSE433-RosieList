@@ -773,7 +773,7 @@ def deleteTag():
     
     arrayOfProducts = tagInProduct(tgid)
     if(not (len(arrayOfProducts) == 0)):
-        print "Can't delete tag, used in transaction " + arrayOfProducts[0]
+        print "Can't delete tag, used in product " + arrayOfProducts[0]
         return
     tgTable.delete(tgid)
 
