@@ -1,13 +1,12 @@
-#from terminal_helper import *
+from terminal_helper import *
 from local_redis import *
-import happybase
-#Curtis Local machine
-connection = happybase.Connection('dhcp-137-112-104-218.rose-hulman.edu', 9090) 
-#Our Virtual Machine
-#connection = happybase.Connection('433-19.csse.rose-hulman.edu', 42970) 
-connection.open()
+from bigtable_helper import *
+from bigtable_lib import *
+from bigtable_remote import *
 
-def displayUser(user):
+
+@connect
+def displayUser(connection, user):
     table = connection.table(userTable)
     row = table.row(user)
     if(not hasRow(user, userTable)):
@@ -28,7 +27,8 @@ def displayUser(user):
     printProductArray(products)
     printReviewArray(reviews)
 
-def editBio(user):
+@connect
+def editBio(connection, user):
     table = connection.table(userTable)
     print("Select a field to edit:")
     print("1 - Name")
@@ -39,13 +39,22 @@ def editBio(user):
         fName = input()
         print("Enter a new last name")
         lName = input()
-        table.put(user, {b'Bio:fName': fName, b'Bio:lName': lName})
+        job = q.enqueue(edit_bio_name, user, fName, lName)
+        while job.result is None:
+            continue
+        if job.result == 1:
+            print("User was not updated")
     if command == '2':
         print("Enter a new email")
         email = input()
-        table.put(user, {b'Bio:email': email})
+        job = q.enqueue(edit_bio_email, user, email)
+        while job.result is None:
+            continue
+        if job.result == 1:
+            print("User was not updated")
 
-def leaveReview(user, loggedInUser):
+@connect
+def leaveReview(connection, user, loggedInUser):
     print('Enter Review ID')
     rvid = input()
     if(hasRow(rvid, reviewTable)):
@@ -61,10 +70,13 @@ def leaveReview(user, loggedInUser):
     if(contents == ""):
         print("Must enter contents for review")
         return
-    createReview(rvid, patron, provider, contents)
+    job = q.enqueue(create_review(conn, rvid, patron, provider, contents))
+    while job.result is None:
+        continue
     addReviewToUser(provider, rvid)
 
-def registerRide(user, loggedInUser):
+@connect
+def registerRide(connection, user, loggedInUser):
     print('Enter Ride ID')
     rid = input()
     if(hasRow(rid, rideTable)):
@@ -96,12 +108,15 @@ def registerRide(user, loggedInUser):
     if(price == ""):
         print("Must enter a price for the ride")
         return
-    createRide(rid, driver, rider, dest, miles, price)
+    job = q.enqueue(create_ride(rid, driver, rider, dest, miles, price))
+    while job.result is None:
+        continue
     addRideToUsers(driver, rider, rid) 
     write_history(loggedInUser, 'r' + rid)
     write_history(user, 'r' + rid)  
 
-def otherUserTerminal(user, loggedInUser):
+@connect
+def otherUserTerminal(connection, user, loggedInUser):
     persist = 1
     write_history(loggedInUser, 'u' + user)
     while(persist == 1):
@@ -129,7 +144,8 @@ def otherUserTerminal(user, loggedInUser):
             if command == 'n':
                 persist = 0
 
-def userHubTerminal(user):
+@connect
+def userHubTerminal(connection, user):
     persist = 1
     while(persist == 1):
         print("Enter a command:")

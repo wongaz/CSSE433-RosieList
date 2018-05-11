@@ -1,3 +1,6 @@
+from bigtable_helper import *
+from bigtable_lib import *
+
 userTable = 'Rosie-List-Users'
 transactionTable = 'Rosie-List-Transactions'
 rideTable = 'Rosie-List-Rides'
@@ -17,11 +20,13 @@ def convertStringToArray(inputString):
     result = inputString.split("|")
     return result
 
-def hasTable(name_of_table):
+@connect
+def hasTable(connection, name_of_table):
     tableList = connection.tables()
     return (name_of_table in tableList)
 
-def hasRow(name_of_row, name_of_table):
+@connect
+def hasRow(connection, name_of_row, name_of_table):
     table = connection.table(name_of_table)
     row = table.row(name_of_row)
     return any(row)
@@ -374,34 +379,6 @@ def addRide():
     createRide(rid, driver, rider, dest, miles, price)
     addRideToUsers(driver, rider, rid)
 
-def addRideToUsers(driver, rider, rid):
-    if(not hasRow(driver, userTable)):
-        print("Driver does not exist in database")
-        return   
-    if(not hasRow(rider, userTable)):
-        print("Rider does not exist in database")
-        return 
-    if(not hasRow(rid, rideTable)):
-        print("Ride does not exist in database")
-        return
-    uTable = connection.table(userTable)
-    driverRow = uTable.row(driver)
-    riderRow = uTable.row(rider)
-    driverDrives = convertStringToArray(driverRow[b'Transactions:rHistory'])
-    riderDrives = convertStringToArray(riderRow[b'Transactions:rHistory'])
-    driverDrives.append(rid)
-    riderDrives.append(rid)
-    stringDriverHistory = convertArrayToString(driverDrives)
-    stringRiderHistory = convertArrayToString(riderDrives)
-    uTable.put(driver, {b'Transactions:rHistory': stringDriverHistory})
-    uTable.put(rider, {b'Transactions:rHistory': stringRiderHistory})
-
-def createRide(rid, driver, rider, dest, miles, price):
-    table = connection.table(rideTable)
-    table.put(rid, {b'Key:RID': rid, 
-        b'Users:driver': driver, b'Users:rider': rider,
-        b'Info:destination': dest, b'Info:mileage': miles, b'Info:price': price})
-
 def displayRide():
     if(not hasTable(rideTable)):
         print("Ride table does not exist")
@@ -456,11 +433,6 @@ def addReview():
     createReview(rvid, patron, provider, contents)
     addReviewToUser(provider, rvid)
 
-def createReview(rvid, patron, provider, contents):
-    table = connection.table(reviewTable)
-    table.put(rvid, {b'Key:RVID': rvid, 
-        b'Users:reviewer': patron, b'Users:reviewed': provider,
-        b'Info:contents': contents})
 
 def displayReview():
     if(not hasTable(reviewTable)):
@@ -596,20 +568,6 @@ def addProductToUser(userName, pid):
     userProducts.append(pid)
     stringProducts = convertArrayToString(userProducts)
     uTable.put(userName, {b'Transactions:products': stringProducts})
-
-def addReviewToUser(userName, rid):
-    if(not hasRow(userName, userTable)):
-        print("User does not exist in database")
-        return   
-    if(not hasRow(rid, reviewTable)):
-        print("Review does not exist in database")
-        return
-    uTable = connection.table(userTable)
-    uRow = uTable.row(userName)
-    userReviews = convertStringToArray(uRow[b'Transactions:reviews'])
-    userReviews.append(rid)
-    stringReviews = convertArrayToString(userReviews)
-    uTable.put(userName, {b'Transactions:reviews': stringReviews})
 
 def addTransactionToUsers(buyer, seller, tid):
     if(not hasRow(buyer, userTable)):

@@ -1,5 +1,6 @@
 from bigtable_remote import *
 import pickle
+from terminal_helper import *
 from redis_lib import *
 import neo4j_lib
 pickle.HIGHEST_PROTOCOL = 2
@@ -379,3 +380,56 @@ def display_tag(conn):
     print((row[b'Key:TGID']))
     print("Tag Name:", end=' ')
     print((row[b'Info:name']))
+
+@connect
+def addReviewToUser(connection, userName, rid):
+    if(not hasRow(userName, user_table)):
+        print("User does not exist in database")
+        return
+    if(not hasRow(rid, review_table)):
+        print("Review does not exist in database")
+        return
+    uTable = connection.table(user_table)
+    uRow = uTable.row(userName)
+    userReviews = convertStringToArray(uRow[b'Transactions:reviews'])
+    userReviews.append(rid)
+    stringReviews = convertArrayToString(userReviews)
+    job = q.enqueue(update_user_reviews, userName, stringReviews)
+    while job.result is None:
+        continue
+
+@connect
+def createRide(connection, rid, driver, rider, dest, miles, price):
+    table = connection.table(ride_table)
+    job = q.enqueue(table.put(rid, {b'Key:RID': rid,
+        b'Users:driver': driver, b'Users:rider': rider,
+        b'Info:destination': dest, b'Info:mileage': miles, b'Info:price': price}))
+    while job.result is None:
+        continue
+
+
+@connect
+def addRideToUsers(connection, driver, rider, rid):
+    if(not hasRow(driver, user_table)):
+        print("Driver does not exist in database")
+        return
+    if(not hasRow(rider, user_table)):
+        print("Rider does not exist in database")
+        return
+    if(not hasRow(rid, rideTable)):
+        print("Ride does not exist in database")
+        return
+    uTable = connection.table(user_table)
+    driverRow = uTable.row(driver)
+    riderRow = uTable.row(rider)
+    driverDrives = convertStringToArray(driverRow[b'Transactions:rHistory'])
+    riderDrives = convertStringToArray(riderRow[b'Transactions:rHistory'])
+    driverDrives.append(rid)
+    riderDrives.append(rid)
+    stringDriverHistory = convertArrayToString(driverDrives)
+    stringRiderHistory = convertArrayToString(riderDrives)
+    job = q.enqueue(add_ride_to_users, driver, rider, stringDriverHistory, stringRiderHistory)
+    while job.result is None:
+        continue
+
+

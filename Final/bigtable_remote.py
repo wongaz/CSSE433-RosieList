@@ -162,5 +162,16 @@ def removeTransactionFromUser(connection,user1, user2, tid):
     transactions2.remove(tid)
     table2.put(user2, {b'Transactions:tHistory': convertArrayToString(transactions2)})
 
+@connect
+def add_ride_to_users(conn, driver, rider, stringDriverHistory, stringRiderHistory):
+    table = conn.table(user_table)
+    table.put(driver, {b'Transactions:rHistory': stringDriverHistory})
+    table.put(rider, {b'Transactions:rHistory': stringRiderHistory})
+
+@connect
+def update_user_reviews(conn, userName, stringReviews):
+    table = conn.table(user_table)
+    table.put(userName, {b'Transactions:reviews': stringReviews})
+
 
 
