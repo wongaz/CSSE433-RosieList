@@ -5,6 +5,14 @@ from Final.bigtable_helper import *
 from Final.redis_lib import *
 from Final.neo4j_lib import *
 
+userTable = 'Rosie-List-Users'
+transactionTable = 'Rosie-List-Transactions'
+rideTable = 'Rosie-List-Rides'
+reviewTable = 'Rosie-List-Reviews'
+productTable = 'Rosie-List-Products'
+tagTable = 'Rosie-List-Tags'
+
+
 @connect
 def displayUser(connection,user):
     table = connection.table(userTable)

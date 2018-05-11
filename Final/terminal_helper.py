@@ -38,36 +38,10 @@ def printArray(attribute, entities):
         for data in entities:
             print(data + ",",)
         print("")
-        
 
-def displayUsers():
-    print(connection.tables())
-    if(not hasTable(userTable)):
-        print("User table does not exist")
-        return
-    table = connection.table(userTable)
-    print('Enter Username')
-    user = input()
-    row = table.row(user)
-    if(not hasRow(user, userTable)):
-        print("Username not in database")
-        return
-    print("Username:",)
-    print(row[b'Key:user'])
-    print("Name:",)
-    print(row[b'Bio:lName'] + ", " + row[b'Bio:fName']) 
-    print("Email:",)
-    print(row[b'Bio:email'])
-    tHistory = convertStringToArray(row[b'Transactions:tHistory'])
-    rHistory = convertStringToArray(row[b'Transactions:rHistory'])
-    products = convertStringToArray(row[b'Transactions:products'])
-    reviews = convertStringToArray(row[b'Transactions:reviews'])
-    printTransactionArray(tHistory, user)
-    printRideArray(rHistory, user)
-    printProductArray(products)
-    printReviewArray(reviews)
 
-def printProductArray(pidList):
+@connect
+def printProductArray(connection,pidList):
     pTable = connection.table(productTable)
     attribute = "Products offered"
     if(len(pidList) == 0):
@@ -79,7 +53,8 @@ def printProductArray(pidList):
             print (pRow[b'Info:name']) + "(PID:" + pid + ")" + ",",
         print("")
 
-def printReviewArray(rvidList):
+@connect
+def printReviewArray(connection,rvidList):
     rTable = connection.table(reviewTable)
     uTable = connection.table(userTable)
     attribute = "Reviews by"
@@ -94,7 +69,8 @@ def printReviewArray(rvidList):
             print("[" + (uRow[b'Bio:fName']) + " " + uRow[b'Bio:lName'] + "(Reveiw ID:" + rvid + ")" + "]" + ",")
         print("")
 
-def printTransactionArray(transactionList, userId):
+@connect
+def printTransactionArray(connection, transactionList, userId):
     tTable = connection.table(transactionTable)
     uTable = connection.table(userTable)
     pTable = connection.table(productTable)
@@ -129,7 +105,8 @@ def printTransactionArray(transactionList, userId):
             print("[" + state + " " + otherState + ", Product Name: " + productName + ", Product ID: " + pid + ", Transaction ID: " + tid + "]")
         print("")
 
-def printRideArray(rideList, userId):
+@connect
+def printRideArray(connection,rideList, userId):
     rTable = connection.table(rideTable)
     uTable = connection.table(userTable)
     pTable = connection.table(productTable)
@@ -188,7 +165,8 @@ def addUser():
         return
     createUser(user, fName, lName, email)
 
-def createUser(user, fName, lName, email):
+@connect
+def createUser(connection,user, fName, lName, email):
     table = connection.table(userTable)
     table.put(user, {b'Key:user': user, 
         b'Bio:fName': fName, b'Bio:lName': lName, b'Bio:email': email,
@@ -230,27 +208,6 @@ def createTransaction(connection,tid, buyer, seller, pid):
     table.put(tid, {b'Key:TID': tid, 
         b'Users:buyer': buyer, b'Users:seller': seller, 
         b'Product:PID': pid})
-
-
-def displayTransaction():
-    if(not hasTable(transactionTable)):
-        print("Transaction table does not exist")
-        return
-    table = connection.table(transactionTable)
-    print('Enter Transaction ID')
-    tid = input()
-    row = table.row(tid)
-    if(not hasRow(tid, transactionTable)):
-        print("Transaction ID not in database")
-        return
-    print("Transaction ID:",)
-    print(row[b'Key:TID'])
-    print("Buyer Username:",)
-    print(row[b'Users:buyer'])
-    print("Seller Username:",)
-    print(row[b'Users:seller']) 
-    print("Product ID:",)
-    print(row[b'Product:PID'])
 
 
 def addProduct():
@@ -305,29 +262,9 @@ def createProduct(connection, pid, name, desc, tags, price) :
         b'Info:name': name, b'Info:description': desc, b'Info:price': price,
         b'Tags:tags': stringTags})
 
-def displayProduct():
-    if(not hasTable(productTable)):
-        print("Product table does not exist")
-        return
-    table = connection.table(productTable)
-    print('Enter Product ID')
-    pid = input()
-    row = table.row(pid)
-    if(not hasRow(pid, productTable)):
-        print("Product ID not in database")
-        return
-    print("Product ID:",)
-    print(row[b'Key:PID'])
-    print("Product Name:",)
-    print(row[b'Info:name'])
-    print("Description:",)
-    print(row[b'Info:description'])
-    print("Price:",)
-    print(row[b'Info:price'])
-    tags = convertStringToArray(row[b'Tags:tags'])
-    printTagArray(tags)
 
-def printTagArray(tagList):
+@connect
+def printTagArray(connection,tagList):
     tTable = connection.table(tagTable)
     attribute = "Tags"
     if(len(tagList) == 0):
@@ -338,121 +275,6 @@ def printTagArray(tagList):
             tRow = tTable.row(tgid)
             print(tRow[b'Info:name']) + "(Tag ID:" + tgid + ")" + ",",
         print("")
-
-def addRide():   
-    print('Enter Ride ID')
-    rid = input()
-    if(hasRow(rid, rideTable)):
-        print("Ride ID already in database")
-        return
-    if(rid == ""):
-        print("Must enter a Ride ID")
-        return
-    print('Enter username of driver')
-    driver = input()
-    if(not hasRow(driver, userTable)):
-        print("Driver does not exist in database")
-        return
-    print('Enter username of rider')
-    rider = input()
-    if(not hasRow(rider, userTable)):
-        print("Rider does not exist in database")
-        return
-    if(driver == rider):
-        print("Driver and rider cannot be the same")
-        return
-    print('Enter destination of ride')
-    dest = input()
-    if(dest == ""):
-        print("Must enter a destination for ride")
-        return
-    print('Enter the mileage of ride')
-    miles = input()
-    if(miles == ""):
-        print("Must enter a mileage for ride")
-        return
-    print('Enter the price of the ride')
-    price = input()
-    if(price == ""):
-        print("Must enter a price for the ride")
-        return
-    createRide(rid, driver, rider, dest, miles, price)
-    addRideToUsers(driver, rider, rid)
-
-def displayRide():
-    if(not hasTable(rideTable)):
-        print("Ride table does not exist")
-        return
-    table = connection.table(rideTable)
-    print('Enter Ride ID')
-    rid = input()
-    row = table.row(rid)
-    if(not hasRow(rid, rideTable)):
-        print("Ride ID not in database")
-        return
-    print("Ride ID:",)
-    print(row[b'Key:RID'])
-    print("Rider Username:",)
-    print(row[b'Users:rider'])
-    print("Driver Username:",)
-    print(row[b'Users:driver']) 
-    print("Destination:",)
-    print(row[b'Info:destination'])
-    print("Mileage:",)
-    print(row[b'Info:mileage'])
-    print("Price:",)
-    print(row[b'Info:price'])
-
-def addReview():   
-    print('Enter Review ID')
-    rvid = input()
-    if(hasRow(rvid, reviewTable)):
-        print("Review ID already in database")
-        return
-    if(rvid == ""):
-        print("Must enter a Review ID")
-        return
-    print('Enter username of Reviewer')
-    patron = input()
-    if(not hasRow(patron, userTable)):
-        print("Reviewer does not exist in database")
-        return
-    print('Enter username of the reviewed')
-    provider = input()
-    if(not hasRow(provider, userTable)):
-        print("Reviewed user does not exist in database")
-        return
-    if(patron == provider):
-        print("Reviewer and reviewed cannot be the same")
-        return
-    print('Enter contents of review')
-    contents = input()
-    if(contents == ""):
-        print("Must enter contents for review")
-        return
-    createReview(rvid, patron, provider, contents)
-    addReviewToUser(provider, rvid)
-
-
-def displayReview():
-    if(not hasTable(reviewTable)):
-        print("Review table does not exist")
-        return
-    table = connection.table(reviewTable)
-    print('Enter Review ID')
-    rvid =input()
-    row = table.row(rvid)
-    if(not hasRow(rvid, reviewTable)):
-        print("Review ID not in database")
-        return
-    print("Review ID:",)
-    print(row[b'Key:RVID'])
-    print("Reviewer Username:",)
-    print(row[b'Users:reviewer'])
-    print("Reviewed Username:",)
-    print(row[b'Users:reviewed']) 
-    print("Review Contents:",)
-    print(row[b'Info:contents'])
 
 def addTag():   
     print('Enter Tag ID')
@@ -477,83 +299,6 @@ def createTag(connection,tgid, name):
         b'Info:name': name})
 
 
-def displayTag():
-    if(not hasTable(tagTable)):
-        print("Tag table does not exist")
-        return
-    table = connection.table(tagTable)
-    print('Enter Tag ID')
-    tgid = input()
-    row = table.row(tgid)
-    if(not hasRow(tgid, tagTable)):
-        print("Tag ID not in database")
-        return
-    print("Tag ID:",)
-    print(row[b'Key:TGID'])
-    print("Tag Name:",)
-    print(row[b'Info:name'])
-
-
-def resetDatabase():
-    if(hasTable(userTable)):
-        connection.disable_table(userTable)
-        connection.delete_table(userTable)
-    connection.create_table(
-        userTable,
-        {'Key': dict(),
-        'Bio': dict(),
-        'Transactions': dict(),   
-        }
-    )
-    if(hasTable(transactionTable)):
-        connection.disable_table(transactionTable)
-        connection.delete_table(transactionTable)
-    connection.create_table(
-        transactionTable,
-        {'Key': dict(),
-        'Users': dict(),
-        'Product': dict(),   
-        }
-    )
-    if(hasTable(productTable)):
-        connection.disable_table(productTable)
-        connection.delete_table(productTable)
-    connection.create_table(
-        productTable,
-        {'Key': dict(),
-        'Info': dict(),
-        'Tags': dict(),   
-        }
-    )
-    if(hasTable(rideTable)):
-        connection.disable_table(rideTable)
-        connection.delete_table(rideTable)
-    connection.create_table(
-        rideTable,
-        {'Key': dict(),
-        'Users': dict(),
-        'Info': dict(),   
-        }
-    )
-    if(hasTable(reviewTable)):
-        connection.disable_table(reviewTable)
-        connection.delete_table(reviewTable)
-    connection.create_table(
-        reviewTable,
-        {'Key': dict(),
-        'Users': dict(),
-        'Info': dict(),   
-        }
-    )
-    if(hasTable(tagTable)):
-        connection.disable_table(tagTable)
-        connection.delete_table(tagTable)
-    connection.create_table(
-        tagTable,
-        {'Key': dict(),
-        'Info': dict(),   
-        }
-    )
 
 @connect
 def addProductToUser(connection,userName, pid):
@@ -570,20 +315,6 @@ def addProductToUser(connection,userName, pid):
     stringProducts = convertArrayToString(userProducts)
     uTable.put(userName, {b'Transactions:products': stringProducts})
 
-
-def addReviewToUser(userName, rid):
-    if(not hasRow(userName, userTable)):
-        print("User does not exist in database")
-        return   
-    if(not hasRow(rid, reviewTable)):
-        print("Review does not exist in database")
-        return
-    uTable = connection.table(userTable)
-    uRow = uTable.row(userName)
-    userReviews = convertStringToArray(uRow[b'Transactions:reviews'])
-    userReviews.append(rid)
-    stringReviews = convertArrayToString(userReviews)
-    uTable.put(userName, {b'Transactions:reviews': stringReviews})
 
 @connect
 def addTransactionToUsers(connection,buyer, seller, tid):
@@ -608,26 +339,8 @@ def addTransactionToUsers(connection,buyer, seller, tid):
     uTable.put(buyer, {b'Transactions:tHistory': stringBuyerHistory})
     uTable.put(seller, {b'Transactions:tHistory': stringSellerHistory})
 
-def tagProduct():
-    print('Enter a Tag ID')
-    tgid = input()
-    if(not hasRow(tgid, tagTable)):
-        print("Tag ID does note exist in database")
-        return
-    print('Enter a Product ID')
-    pid = input()
-    if(not hasRow(pid, productTable)):
-        print("PID does note exist in database")
-        return
-    table = connection.table(productTable)
-    row = table.row(pid)
-    arrayTags = convertStringToArray(row[b'Tags:tags'])
-    arrayTags.append(tgid)
-    stringTags = convertArrayToString(arrayTags)
-    table.put(pid, {b'Tags:tags': stringTags})
-    return
-
-def userHasProduct(user, pid):
+@connect
+def userHasProduct(connection,user, pid):
     table = connection.table(userTable)
     row = table.row(user)
     productList = convertStringToArray(row[b'Transactions:products'])
@@ -636,79 +349,6 @@ def userHasProduct(user, pid):
     else:
         return False
 
-def deleteUser():
-    print('Enter a Username')
-    user = input()
-    table = connection.table(userTable)
-    if(not hasRow(user, userTable)):
-        print("Username does not exist in database")
-        return
-    table.delete(user)
-
-def deleteTransaction():
-    print('Enter a Transaction ID')
-    tid = input()
-    tTable = connection.table(transactionTable)
-    
-    if(not hasRow(tid, transactionTable)):
-        print("Transaction ID does not exist in database")
-        return
-    tRow = tTable.row(tid)
-    buyer = tRow['Users:buyer']
-    seller = tRow['Users:seller']
-    removeTransactionFromUser(buyer, tid)
-    removeTransactionFromUser(seller, tid)
-    tTable.delete(tid)
-    
-def removeTransactionFromUser(user, tid):
-    table = connection.table(userTable)
-    row = table.row(user)
-    transactions = convertStringToArray(row[b'Transactions:tHistory'])
-    transactions.remove(tid)
-    table.put(user, {b'Transactions:tHistory': convertArrayToString(transactions)})
-
-def deleteRide():
-    print('Enter a Ride ID')
-    rid = input()
-    rTable = connection.table(rideTable)
-    
-    if(not hasRow(rid, rideTable)):
-        print("Ride ID does not exist in database")
-        return
-    rRow = rTable.row(rid)
-    driver = rRow['Users:driver']
-    rider = rRow['Users:rider']
-    removeRideFromUser(driver, rid)
-    removeRideFromUser(rider, rid)
-    rTable.delete(rid)
-
-
-def removeRideFromUser(user, rid):
-    table = connection.table(userTable)
-    row = table.row(user)
-    rides = convertStringToArray(row[b'Transactions:rHistory'])
-    rides.remove(rid)
-    table.put(user, {b'Transactions:rHistory': convertArrayToString(rides)})
-
-
-def deleteProduct():
-    print('Enter a Product ID')
-    pid = input()
-    pTable = connection.table(productTable)
-    
-    if(not hasRow(pid, productTable)):
-        print("Product ID does not exist in database")
-        return
-    
-    arrayOfTransactions = productInTransaction(pid)
-    if(not (len(arrayOfTransactions) == 0)):
-        print("Can't delete product, used in transaction " + arrayOfTransactions[0])
-        return
-
-    sellerList = productInUser(pid)
-    for seller in sellerList:
-        removeProductFromUser(seller, pid)
-    pTable.delete(pid)
 @connect
 def removeProductFromUser(connection,user, pid):
     table = connection.table(userTable)
@@ -718,7 +358,8 @@ def removeProductFromUser(connection,user, pid):
         products.remove(pid)
     table.put(user, {b'Transactions:products': convertArrayToString(products)})
 
-def productInTransaction(pid):
+@connect
+def productInTransaction(connection,pid):
     table = connection.table(transactionTable)
     transactions = []
     for key, data in table.scan():
@@ -728,7 +369,8 @@ def productInTransaction(pid):
                 transactions.append(key)
     return transactions
 
-def productInUser(pid):
+@connect
+def productInUser(connection,pid):
     table = connection.table(userTable)
     users = []
     for key, data in table.scan():
@@ -736,30 +378,6 @@ def productInUser(pid):
         if(pid in productList):
             users.append(key)
     return users
-
-def deleteTag():
-    print('Enter a Tag ID')
-    tgid = input()
-    tgTable = connection.table(tagTable)
-    
-    if(not hasRow(tgid, tagTable)):
-        print("Tag ID does not exist in database")
-        return
-    
-    arrayOfProducts = tagInProduct(tgid)
-    if(not (len(arrayOfProducts) == 0)):
-        print("Can't delete tag, used in product " + arrayOfProducts[0])
-        return
-    tgTable.delete(tgid)
-
-def tagInProduct(tgid):
-    table = connection.table(productTable)
-    tags = []
-    for key, data in table.scan():
-        tagList = convertStringToArray(data[b'Tags:tags'])
-        if(tgid in tagList):
-            tags.append(key)
-    return tags
 
 
 
