@@ -22,7 +22,7 @@ def displayUser(connection,user):
     print("Username:", end=' ')
     print((row[b'Key:user']))
     print("Name:", end=' ')
-    print((row[b'Bio:lName'] + ", " + row[b'Bio:fName'])) 
+    print((row[b'Bio:lName'] + ", ".encode("utf-8") + row[b'Bio:fName']))
     print("Email:", end=' ')
     print((row[b'Bio:email']))
     tHistory = convertStringToArray(row[b'Transactions:tHistory'])

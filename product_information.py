@@ -161,7 +161,7 @@ def tagProductInUser(connection,user):
     if command == 'y':
         table = connection.table(tagTable)
         for key, data in table.scan():
-            print("Tag: " + data['Info:name'] + "ID: " + key)
+            print("Tag: ".encode("utf-8") + data['Info:name'] + "ID: ".encode("utf-8") + key)
     print('Enter a Tag ID')
     tgid = input()
     if(not hasRow(tgid, tagTable)):

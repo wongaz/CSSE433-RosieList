@@ -59,7 +59,7 @@ def printProductArray(connection,pidList):
         print(attribute + ":",)
         for pid in pidList:
             pRow = pTable.row(pid.encode('utf-8'))
-            print (pRow[b'Info:name']) + "(PID:" + pid + ")" + ",",
+            print (pRow[b'Info:name']) + "(PID:".encode("utf-8") + pid + ")".encode("utf-8") + ",".encode("utf-8"),
         print("")
 
 @connect
@@ -75,7 +75,7 @@ def printReviewArray(connection,rvidList):
             rRow = rTable.row(rvid.encode('utf-8'))
             reviewerId = rRow[b'Users:reviewer']
             uRow = uTable.row(reviewerId.encode('utf-8'))
-            print("[" + (uRow[b'Bio:fName']) + " " + uRow[b'Bio:lName'] + "(Reveiw ID:" + rvid + ")" + "]" + ",")
+            print("[".encode("utf-8") + (uRow[b'Bio:fName']) + " ".encode("utf-8") + uRow[b'Bio:lName'] + "(Reveiw ID:".encode("utf-8") + rvid + ")".encode("utf-8") + "]".encode("utf-8") + ",".encode("utf-8"))
         print("")
 
 @connect
@@ -103,15 +103,15 @@ def printTransactionArray(connection, transactionList, userId):
 
             if buyerId == userId:
                 state = "User was Buyer, "
-                otherState = "Seller: " + sellerRow[b'Bio:fName'] + " " + sellerRow[b'Bio:lName']
+                otherState = "Seller: ".encode("utf-8") + sellerRow[b'Bio:fName'] + " ".encode("utf-8") + sellerRow[b'Bio:lName']
 
             if sellerId == userId:
                 state = "User was Seller, "
-                otherState = "Buyer: " + buyerRow[b'Bio:fName'] + " " + buyerRow[b'Bio:lName']
+                otherState = "Buyer: ".encode("utf-8") + buyerRow[b'Bio:fName'] + " ".encode("utf-8") + buyerRow[b'Bio:lName']
 
             productName = pRow[b'Info:name']
 
-            print("[" + state + " " + otherState + ", Product Name: " + productName + ", Product ID: " + pid + ", Transaction ID: " + tid + "]")
+            print("[".encode("utf-8") + state + " ".encode("utf-8") + otherState + ", Product Name: ".encode("utf-8") + productName + ", Product ID: ".encode("utf-8") + pid + ", Transaction ID: ".encode("utf-8") + tid + "]".encode("utf-8"))
         print("")
 
 @connect
@@ -138,13 +138,13 @@ def printRideArray(connection,rideList, userId):
 
             if driverId == userId:
                 state = "User was Driver, "
-                otherState = "Rider: " + riderRow[b'Bio:fName'] + " " + riderRow[b'Bio:lName']
+                otherState = "Rider: ".encode("utf-8") + riderRow[b'Bio:fName'] + " ".encode("utf-8") + riderRow[b'Bio:lName']
 
             if riderId == userId:
                 state = "User was Rider, "
-                otherState = "Driver: " + driverRow[b'Bio:fName'] + " " + driverRow[b'Bio:lName']
+                otherState = "Driver: ".encode("utf-8") + driverRow[b'Bio:fName'] + " ".encode("utf-8") + driverRow[b'Bio:lName']
 
-            print("[" + state + " " + otherState + ", Destination: " + destination + ", Ride ID: " + rid + "]")
+            print("[".encode("utf-8") + state + " ".encode("utf-8") + otherState + ", Destination: ".encode("utf-8") + destination + ", Ride ID: ".encode("utf-8") + rid + "]".encode("utf-8"))
         print("")
 
 
@@ -282,7 +282,7 @@ def printTagArray(connection,tagList):
         print(attribute + ":",)
         for tgid in tagList:
             tRow = tTable.row(tgid.encode('utf-8'))
-            print(tRow[b'Info:name']) + "(Tag ID:" + tgid + ")" + ",",
+            print(tRow[b'Info:name']) + "(Tag ID:".encode("utf-8") + tgid + ")".encode("utf-8") + ",".encode("utf-8"),
         print("")
 
 def addTag():   

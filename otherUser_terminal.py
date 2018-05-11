@@ -15,7 +15,7 @@ def displayUser(connection, user):
     print("Username:", end=' ')
     print((row[b'Key:user']))
     print("Name:", end=' ')
-    print((row[b'Bio:lName'] + ", " + row[b'Bio:fName'])) 
+    print((row[b'Bio:lName'] + b", " + row[b'Bio:fName']))
     print("Email:", end=' ')
     print((row[b'Bio:email']))
     tHistory = convertStringToArray(row[b'Transactions:tHistory'])
@@ -159,7 +159,7 @@ def userHubTerminal(connection, user):
             for key, data in table.scan():
                 print("Username: " + key, end=' ')
                 print("Name:", end=' ')
-                print((data[b'Bio:fName'] + " " + data[b'Bio:lName'])) 
+                print((data[b'Bio:fName'] + " ".encode("utf-8") + data[b'Bio:lName']))
         
         if command == '2':
             table = connection.table(userTable)
