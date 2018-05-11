@@ -81,7 +81,8 @@ def editProduct(connection, user):
         price = input()
         q.enqueue(edit_product_price, productTable, pid, price)
 
-def addProductWithUser(connection,user):
+@connect
+def addProductWithUser(connection, user):
     print('Enter Product ID')
     pid = input()
     if(hasRow(pid, productTable)):
