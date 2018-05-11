@@ -1,15 +1,9 @@
-from terminal_helper import *
-from local_redis import *
-from bigtable_lib import *
-from bigtable_helper import *
-from redis_lib import *
-from neo4j_lib import *
-import happybase
-#Curtis Local machine
-#connection = happybase.Connection('dhcp-137-112-104-218.rose-hulman.edu', 9090)
-#Our Virtual Machine
-#connection = happybase.Connection('433-19.csse.rose-hulman.edu', 42970)
-#connection.open()
+from Final.terminal_helper import *
+from Final.local_redis import *
+from Final.bigtable_lib import *
+from Final.bigtable_helper import *
+from Final.redis_lib import *
+from Final.neo4j_lib import *
 
 @connect
 def displayUser(connection,user):
@@ -34,7 +28,7 @@ def displayUser(connection,user):
     printReviewArray(reviews)
 
 @connect
-def editBio(connection,user):
+def editBio(connection, user):
     table = connection.table(userTable)
     print("Select a field to edit:")
     print("1 - Name")
@@ -51,7 +45,7 @@ def editBio(connection,user):
         email = input()
         table.put(user, {b'Bio:email': email})
 
-
+@connect
 def listTransactions(connection,user):
     uTable = connection.table(userTable)
     uRow = uTable.row(user)
@@ -70,7 +64,7 @@ def listTransactions(connection,user):
         print((row[b'Product:PID']))
 
 @connect
-def deleteTransactionFromUser(connection,user):
+def deleteTransactionFromUser(connection, user):
     table = connection.table(transactionTable)
     uTable = connection.table(userTable)
     print("Enter a tid")
