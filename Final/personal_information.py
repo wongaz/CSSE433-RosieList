@@ -80,8 +80,7 @@ def deleteTransactionFromUser(connection, user):
     tRow = table.row(tid)
     buyer = tRow['Users:buyer']
     seller = tRow['Users:seller']
-    removeTransactionFromUser(buyer, tid)
-    removeTransactionFromUser(seller, tid)
+    removeTransactionFromUser(buyer, seller,tid)
     table.delete(tid)
 
 @connect
@@ -123,9 +122,7 @@ def deleteRideFromUser(connection,user):
     rRow = table.row(rid)
     driver = rRow['Users:driver']
     rider = rRow['Users:rider']
-    removeRideFromUser(driver, rid)
-    removeRideFromUser(rider, rid)
-    table.delete(rid)
+    removeRideFromUser(driver,rider, rid)
 
 @connect
 def listReviews(connection,user):
