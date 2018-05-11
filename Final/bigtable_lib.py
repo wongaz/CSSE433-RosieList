@@ -1,7 +1,8 @@
-from bigtable_remote import *
+from Final.bigtable_remote import *
 import pickle
-from redis_lib import *
-import neo4j_lib
+from Final.redis_lib import *
+from  Final.bigtable_helper import *
+import Final.neo4j_lib
 pickle.HIGHEST_PROTOCOL = 2
 from rq import Queue
 import datetime
@@ -181,7 +182,7 @@ def add_product(conn):
     job = q.enqueue(create_product, pid, name, desc, tags, price)
     while job.result is None:
         continue
-    job = q.enqueue(neo4j_lib.add_product, pid, name, desc, tags, price)
+    job = q.enqueue(Final.neo4j_lib.add_product, pid, name, desc, tags, price)
     while job.result is None:
         continue
     if job.result ==1:
@@ -355,7 +356,7 @@ def add_tag(conn):
     while job.result is None:
         continue
 
-    job = q.enqueue(neo4j_lib.add_tag, tgid, name)
+    job = q.enqueue(Final.neo4j_lib.add_tag, tgid, name)
     while job.result is None:
         continue
     if job.result ==1:
@@ -379,3 +380,29 @@ def display_tag(conn):
     print((row[b'Key:TGID']))
     print("Tag Name:", end=' ')
     print((row[b'Info:name']))
+
+
+@connect
+def edit_product_name(connection, productTable,pid,name):
+    table = connection.table(productTable)
+    table.put(pid, {b'Info:name': name})
+
+@connect
+def edit_product_desc(connection, productTable,pid,desc):
+    table = connection.table(productTable)
+    table.put(pid, {b'Info:name': desc})
+
+@connect
+def edit_product_price(connection, productTable,pid,price):
+    table = connection.table(productTable)
+    table.put(pid, {b'Info:name': price})
+
+@connect
+def deleteProduct(connection,tablel, pid):
+    table = connection.table(tablel)
+    table.delete(pid)
+
+@connect
+def put_tag(con,tablel,pid, tag):
+    table = con.table(tablel)
+    table.put(pid, {b'Tags:tags': tag})

@@ -1,3 +1,4 @@
+from Final.bigtable_helper import *
 userTable = 'Rosie-List-Users'
 transactionTable = 'Rosie-List-Transactions'
 rideTable = 'Rosie-List-Rides'
@@ -220,8 +221,8 @@ def addTransaction():
         return
     createTransaction(tid, buyer, seller, pid)
     addTransactionToUsers(buyer, seller, tid)
-
-def createTransaction(tid, buyer, seller, pid):
+@connect
+def createTransaction(connection,tid, buyer, seller, pid):
     table = connection.table(transactionTable)
     table.put(tid, {b'Key:TID': tid, 
         b'Users:buyer': buyer, b'Users:seller': seller, 
@@ -293,7 +294,8 @@ def addProduct():
     createProduct(pid, name, desc, tags, price)
     addProductToUser(user, pid) 
 
-def createProduct(pid, name, desc, tags, price) :
+@connect
+def createProduct(connection, pid, name, desc, tags, price) :
     table = connection.table(productTable)
     stringTags = convertArrayToString(tags)
     table.put(pid, {b'Key:PID': pid, 
@@ -498,8 +500,8 @@ def addTag():
         return
     createTag(tgid, name)
 
-
-def createTag(tgid, name):
+@connect
+def createTag(connection,tgid, name):
     table = connection.table(tagTable)
     table.put(tgid, {b'Key:TGID': tgid, 
         b'Info:name': name})
@@ -583,7 +585,8 @@ def resetDatabase():
         }
     )
 
-def addProductToUser(userName, pid):
+@connect
+def addProductToUser(connection,userName, pid):
     if(not hasRow(userName, userTable)):
         print("User does not exist in database")
         return   
@@ -611,7 +614,8 @@ def addReviewToUser(userName, rid):
     stringReviews = convertArrayToString(userReviews)
     uTable.put(userName, {b'Transactions:reviews': stringReviews})
 
-def addTransactionToUsers(buyer, seller, tid):
+@connect
+def addTransactionToUsers(connection,buyer, seller, tid):
     if(not hasRow(buyer, userTable)):
         print("User does not exist in database")
         return   
@@ -734,8 +738,8 @@ def deleteProduct():
     for seller in sellerList:
         removeProductFromUser(seller, pid)
     pTable.delete(pid)
-    
-def removeProductFromUser(user, pid):
+@connect
+def removeProductFromUser(connection,user, pid):
     table = connection.table(userTable)
     row = table.row(user)
     products = convertStringToArray(row[b'Transactions:products'])

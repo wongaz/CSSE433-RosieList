@@ -1,7 +1,12 @@
-from terminal_helper import *
-from local_redis import *
-from bigtable_helper import *
-
+from Final.terminal_helper import *
+from Final.local_redis import *
+from Final.bigtable_lib import *
+import pickle
+from Final.redis_lib import *
+pickle.HIGHEST_PROTOCOL = 2
+from rq import Queue
+queue_conn = redis.StrictRedis(host='433-19.csse.rose-hulman.edu', port=6379, db=0)
+q = Queue(connection=queue_conn)
 
 userTable = 'Rosie-List-Users'
 transactionTable = 'Rosie-List-Transactions'
@@ -63,15 +68,15 @@ def editProduct(connection, user):
     if command == '1':
         print("Enter a new name")
         name = input()
-        table.put(pid, {b'Info:name': name})
+        q.enqueue( edit_product_name, productTable,pid, name)
     if command == '2':
         print("Enter a new Description")
         desc = input()
-        table.put(pid, {b'Info:description': desc})
+        q.enqueue(edit_product_desc, productTable, pid, desc)
     if command == '3':
         print("Enter a new price")
         price = input()
-        table.put(pid, {b'Info:price': price})
+        q.enqueue(edit_product_price, productTable, pid, price)
 
 def addProductWithUser(connection,user):
     print('Enter Product ID')
@@ -109,8 +114,8 @@ def addProductWithUser(connection,user):
     if(price == ""):
         print("Must enter a price")
         return
-    createProduct(pid, name, desc, tags, price)
-    addProductToUser(user, pid)
+    q.enqueue(createProduct,pid, name, desc, tags, price)
+    q.enqueue(addProductToUser,user, pid)
 
 def deleteProductWithUser(connection,user):
     table = connection.table(productTable)
@@ -131,8 +136,8 @@ def deleteProductWithUser(connection,user):
         return
     sellerList = productInUser(pid)
     for seller in sellerList:
-        removeProductFromUser(seller, pid)
-    table.delete(pid)
+        q.enqueue(removeProductFromUser,seller, pid)
+    q.enqueue(deleteProduct,productTable,pid)
 
 @connect
 def tagProductInUser(connection,user):
@@ -168,7 +173,7 @@ def tagProductInUser(connection,user):
     arrayTags = convertStringToArray(row[b'Tags:tags'])
     arrayTags.append(tgid)
     stringTags = convertArrayToString(arrayTags)
-    table.put(pid, {b'Tags:tags': stringTags})
+    q.enqueue(put_tag, tagTable, pid, stringTags)
     return 
 
 def createTagWithID(tgid):
@@ -178,7 +183,7 @@ def createTagWithID(tgid):
         name = input()
         if(name == ""):
             print("Must enter name for tag")
-    createTag(tgid, name)
+    q.enqueue(createTag(tgid, name))
 
 @connect
 def buyProduct(connection, user):
@@ -209,8 +214,8 @@ def buyProduct(connection, user):
         if(hasRow(tid, transactionTable)):
             print("Transaction ID already in database")
             tid = ""
-    createTransaction(tid, user, seller, pid)
-    addTransactionToUsers(user, seller, tid)
+    q.enqueue(createTransaction, tid, user, seller, pid)
+    q.enqueue(addTransactionToUsers,user, seller, tid)
     write_history(seller, 't' + tid)
     write_history(user, 't' + tid)  
 
