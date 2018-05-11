@@ -50,9 +50,9 @@ def connect(func):
         instance = client.instance(instance_id)
         connection = happybase.Connection(instance=instance)
 
-        func(connection, *args, **kwargs)
+        r =func(connection, *args, **kwargs)
 
         connection.close()
-        return 0
+        return r
 
     return function_wrapper
