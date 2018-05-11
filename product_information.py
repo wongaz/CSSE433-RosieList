@@ -43,7 +43,7 @@ def searchProduct(connection):
     table = connection.table(productTable)
     count = 1
     for key, data in table.scan():
-        if name == data[b'Info:name']:
+        if name.encode("utf-8") == data[b'Info:name']:
             print("")
             print("Match " + str(count))
             displayProductWithId(key)
