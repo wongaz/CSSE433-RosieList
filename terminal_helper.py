@@ -1,9 +1,9 @@
 import happybase
 #Curtis Local machine
-connection = happybase.Connection('dhcp-137-112-104-218.rose-hulman.edu', 9090) 
+#connection = happybase.Connection('dhcp-137-112-104-218.rose-hulman.edu', 9090)
 #Our Virtual Machine
 #connection = happybase.Connection('433-19.csse.rose-hulman.edu', 42970) 
-connection.open()
+#connection.open()
 
 userTable = 'Rosie-List-Users'
 transactionTable = 'Rosie-List-Transactions'

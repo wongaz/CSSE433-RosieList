@@ -1,4 +1,4 @@
-#from terminal_helper import *
+from terminal_helper import *
 from local_redis import *
 from bigtable_helper import *
 
@@ -9,8 +9,9 @@ rideTable = 'Rosie-List-Rides'
 reviewTable = 'Rosie-List-Reviews'
 productTable = 'Rosie-List-Products'
 tagTable = 'Rosie-List-Tags'
-@connection
-def displayProductWithId(connection,pid):
+
+@connect
+def displayProductWithId(connection, pid):
     table = connection.table(productTable)
     row = table.row(pid)
     if(not hasRow(pid, productTable)):
@@ -27,7 +28,8 @@ def displayProductWithId(connection,pid):
     tags = convertStringToArray(row[b'Tags:tags'])
     printTagArray(tags)
 
-def searchProduct():
+@connect
+def searchProduct(connection):
     print('Enter Product Name')
     name = input()
     table = connection.table(productTable)
@@ -38,8 +40,9 @@ def searchProduct():
             print("Match " + str(count))
             displayProductWithId(key)
             count = count + 1
+
 @connect
-def editProduct(user):
+def editProduct(connection, user):
     table = connection.table(productTable)
     uTable = connection.table(userTable)
     print("Enter a pid")
@@ -70,7 +73,7 @@ def editProduct(user):
         price = input()
         table.put(pid, {b'Info:price': price})
 
-def addProductWithUser(user):  
+def addProductWithUser(connection,user):
     print('Enter Product ID')
     pid = input()
     if(hasRow(pid, productTable)):
@@ -109,7 +112,7 @@ def addProductWithUser(user):
     createProduct(pid, name, desc, tags, price)
     addProductToUser(user, pid)
 
-def deleteProductWithUser(user):
+def deleteProductWithUser(connection,user):
     table = connection.table(productTable)
     uTable = connection.table(userTable)
     print("Enter a pid")
@@ -130,8 +133,9 @@ def deleteProductWithUser(user):
     for seller in sellerList:
         removeProductFromUser(seller, pid)
     table.delete(pid)
-    
-def tagProductInUser(user):
+
+@connect
+def tagProductInUser(connection,user):
     table = connection.table(productTable)
     uTable = connection.table(userTable)
     print("Enter a pid")
@@ -176,7 +180,8 @@ def createTagWithID(tgid):
             print("Must enter name for tag")
     createTag(tgid, name)
 
-def buyProduct(user):
+@connect
+def buyProduct(connection, user):
     table = connection.table(productTable)
     uTable = connection.table(userTable)
     uRow = uTable.row(user)
@@ -209,7 +214,8 @@ def buyProduct(user):
     write_history(seller, 't' + tid)
     write_history(user, 't' + tid)  
 
-def productTerminal(user):
+@connect
+def productTerminal(connection,user):
     persist = 1
     while(persist == 1):
         print("Enter a command:")
