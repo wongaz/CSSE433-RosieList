@@ -96,7 +96,7 @@ def create_user(conn, user, f_name, l_name, email):
     table = conn.table(user_table)
     table.put(user, {b'Key:user': user,
                      b'Bio:fName': f_name, b'Bio:lName': l_name, b'Bio:email': email,
-                     b'Transactions:t_history': "", b'Transactions:r_history': "",
+                     b'Transactions:tHistory': "", b'Transactions:rHistory': "",
                      b'Transactions:products': "", b'Transactions:reviews': ""})
 
 
