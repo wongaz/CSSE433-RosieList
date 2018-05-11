@@ -220,7 +220,7 @@ def buyProduct(connection, user):
             tid = ""
     q.enqueue(createTransaction, tid, user, seller, pid)
     q.enqueue(addTransactionToUsers,user, seller, tid)
-    write_history(seller, 't' + tid)
+    write_history(seller.decode(), 't' + tid)
     write_history(user, 't' + tid)  
 
 @connect

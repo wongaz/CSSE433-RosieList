@@ -19,7 +19,7 @@ def write_history(conn,user, item):
         pageType = "Transaction: "
     if pageType == 'r':
         pageType = "Ride: "
-    if conn.lpush('history:'+user, pageType + pageId) == 0:
+    if conn.lpush("history:"+user, pageType + pageId) == 0:
         return 1
     return 0
 

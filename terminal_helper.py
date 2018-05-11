@@ -57,10 +57,10 @@ def printProductArray(connection,pidList):
     if(len(pidList) == 0):
         print(attribute + ": None")
     else:
-        print(attribute + ":".encode('utf-8'),)
+        print(attribute + ":",)
         for pid in pidList:
             pRow = pTable.row(pid.encode('utf-8'))
-            print (pRow[b'Info:name']) + "(PID:".encode("utf-8") + pid + ")".encode("utf-8") + ",".encode("utf-8"),
+            print(pRow[b'Info:name'] + "(PID:".encode("utf-8") + pid.encode("utf-8") + ")".encode("utf-8") + ",".encode("utf-8"))
         print("")
 
 @connect
@@ -95,9 +95,9 @@ def printTransactionArray(connection, transactionList, userId):
             sellerId = tRow[b'Users:seller']
             pid = tRow[b'Product:PID']
 
-            pRow = pTable.row(pid.encode('utf-8'))
-            buyerRow = uTable.row(buyerId.encode('utf-8'))
-            sellerRow = uTable.row(sellerId.encode('utf-8'))
+            pRow = pTable.row(pid)
+            buyerRow = uTable.row(buyerId)
+            sellerRow = uTable.row(sellerId)
 
             state = ""
             otherState = ""
@@ -112,7 +112,7 @@ def printTransactionArray(connection, transactionList, userId):
 
             productName = pRow[b'Info:name']
 
-            print("[".encode("utf-8") + state + " ".encode("utf-8") + otherState + ", Product Name: ".encode("utf-8") + productName + ", Product ID: ".encode("utf-8") + pid + ", Transaction ID: ".encode("utf-8") + tid + "]".encode("utf-8"))
+            print("[".encode("utf-8") + state.encode("utf-8") + " ".encode("utf-8") + otherState.encode("utf-8") + ", Product Name: ".encode("utf-8") + productName + ", Product ID: ".encode("utf-8") + pid + ", Transaction ID: ".encode("utf-8") + tid.encode('utf-8') + "]".encode("utf-8"))
         print("")
 
 @connect
