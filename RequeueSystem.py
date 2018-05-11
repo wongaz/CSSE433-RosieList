@@ -2,7 +2,7 @@ from redis import StrictRedis
 from rq import Queue, get_failed_queue
 import time
 
-MAX_ATTEMPTS = 30
+MAX_ATTEMPTS = 24*60
 
 queue_conn = StrictRedis(host='433-19.csse.rose-hulman.edu', port=6379, db=0)
 q = Queue(connection=queue_conn)

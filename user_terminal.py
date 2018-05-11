@@ -13,12 +13,12 @@ tagTable = 'Rosie-List-Tags'
 def userTerminal(username):
     persist = 1
     while(persist == 1):
-        print "Enter a command:"
-        print "1 - Personal Information"
-        print "2 - Products"
-        print "3 - Other Users"
-        print "q - logout"
-        command = raw_input()
+        print("Enter a command:")
+        print("1 - Personal Information")
+        print("2 - Products")
+        print("3 - Other Users")
+        print("q - logout")
+        command = input()
 
         if command == '1':
             personalTerminal(username)
@@ -34,20 +34,20 @@ def userTerminal(username):
         
         
         if persist == 1:
-            print "Continue (Y/n)"
-            command = raw_input()
+            print("Continue (Y/n)")
+            command = input()
             if command == 'n':
                 persist = 0
 
 def login():
     inputUsername = 0
     while inputUsername == 0:
-        print 'Enter Username (q to return to main menu)'
-        user = raw_input()
+        print('Enter Username (q to return to main menu)')
+        user = input()
         if user == 'q':
             return
         if(not hasRow(user, userTable)):
-            print "Username not in database"
+            print("Username not in database")
         else:
             userTerminal(user)
     return
@@ -58,11 +58,11 @@ def createAccount():
 #Main
 persist = 1
 while(persist == 1):
-    print "Enter a command:"
-    print "1 - Login"
-    print "2 - Create user"
-    print "q - Quit"
-    command = raw_input()
+    print("Enter a command:")
+    print("1 - Login")
+    print("2 - Create user")
+    print("q - Quit")
+    command = input()
     if command == '1':
         login()
     
@@ -73,7 +73,7 @@ while(persist == 1):
         persist = 0
     
     if persist == 1:
-        print "Continue (Y/n)"
-        command = user = raw_input()
+        print("Continue (Y/n)")
+        command = user = input()
         if command == 'n':
             persist = 0
