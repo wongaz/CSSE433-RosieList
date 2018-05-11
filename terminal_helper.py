@@ -71,12 +71,12 @@ def printReviewArray(connection,rvidList):
     if(len(rvidList) == 0):
         print(attribute + ": None")
     else:
-        print(attribute + ":".encode('utf-8'),)
+        print(attribute + ":",)
         for rvid in rvidList:
             rRow = rTable.row(rvid.encode('utf-8'))
             reviewerId = rRow[b'Users:reviewer']
-            uRow = uTable.row(reviewerId.encode('utf-8'))
-            print("[".encode("utf-8") + (uRow[b'Bio:fName']) + " ".encode("utf-8") + uRow[b'Bio:lName'] + "(Reveiw ID:".encode("utf-8") + rvid + ")".encode("utf-8") + "]".encode("utf-8") + ",".encode("utf-8"))
+            uRow = uTable.row(reviewerId)
+            print("[".encode("utf-8") + (uRow[b'Bio:fName']) + " ".encode("utf-8") + uRow[b'Bio:lName'] + "(Reveiw ID:".encode("utf-8") + rvid.encode("utf-8") + ")".encode("utf-8") + "]".encode("utf-8") + ",".encode("utf-8"))
         print("")
 
 @connect
