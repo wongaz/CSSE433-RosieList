@@ -108,7 +108,7 @@ def registerRide(connection, user, loggedInUser):
     if(price == ""):
         print("Must enter a price for the ride")
         return
-    job = q.enqueue(create_ride(rid, driver, rider, dest, miles, price))
+    job = q.enqueue(create_ride, rid, driver, rider, dest, miles, price)
     while job.result is None:
         continue
     addRideToUsers(driver, rider, rid) 

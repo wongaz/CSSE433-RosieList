@@ -1,4 +1,4 @@
-from Final.bigtable_helper import *
+from bigtable_helper import *
 
 user_table = 'Rosie-List-Users'
 transaction_table = 'Rosie-List-Transactions'
@@ -175,7 +175,7 @@ def update_user_reviews(conn, userName, stringReviews):
     table = conn.table(user_table)
     table.put(userName, {b'Transactions:reviews': stringReviews})
 
-
+@connect
 def remove_rider_from_user(connection,user1, user2, tid):
     table1 = connection.table(user_table)
     row1 = table1.row(user1)

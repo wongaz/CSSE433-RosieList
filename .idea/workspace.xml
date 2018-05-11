@@ -25,11 +25,8 @@
       <file leaf-file-name="terminal_helper.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Final/terminal_helper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="596">
+              <caret line="749" column="39" selection-start-line="749" selection-start-column="39" selection-end-line="749" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -49,17 +46,17 @@
       <file leaf-file-name="bigtable_remote.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Final/bigtable_remote.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="128" column="4" lean-forward="true" selection-start-line="128" selection-start-column="4" selection-end-line="128" selection-end-column="57" />
+            <state relative-caret-position="-1620">
+              <caret column="5" selection-start-column="5" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="otherUser_terminal.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="otherUser_terminal.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Final/otherUser_terminal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2246">
-              <caret line="151" column="31" lean-forward="true" selection-start-line="151" selection-start-column="31" selection-end-line="151" selection-end-column="31" />
+            <state relative-caret-position="596">
+              <caret line="113" column="15" lean-forward="true" selection-start-line="113" selection-start-column="15" selection-end-line="113" selection-end-column="15" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -76,13 +73,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bigtable_lib.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="bigtable_lib.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Final/bigtable_lib.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="411" column="4" selection-start-line="411" selection-start-column="4" selection-end-line="411" selection-end-column="4" />
+            <state relative-caret-position="298">
+              <caret line="413" column="51" lean-forward="true" selection-start-line="413" selection-start-column="51" selection-end-line="413" selection-end-column="51" />
               <folding>
-                <element signature="e#0#29#0" expanded="true" />
+                <element signature="e#0#35#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -99,8 +96,8 @@
       <find>crea</find>
       <find>createRide</find>
       <find>create_ride</find>
-      <find>create_revi</find>
       <find>userTable</find>
+      <find>create_revi</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -109,10 +106,10 @@
         <option value="$PROJECT_DIR$/Frontend_2/terminal_helper_2.py" />
         <option value="$PROJECT_DIR$/bigtable_lib.py" />
         <option value="$PROJECT_DIR$/Frontend_2/frontend_2.py" />
-        <option value="$PROJECT_DIR$/Final/terminal_helper.py" />
-        <option value="$PROJECT_DIR$/Final/bigtable_remote.py" />
         <option value="$PROJECT_DIR$/Final/bigtable_lib.py" />
+        <option value="$PROJECT_DIR$/Final/terminal_helper.py" />
         <option value="$PROJECT_DIR$/Final/otherUser_terminal.py" />
+        <option value="$PROJECT_DIR$/Final/bigtable_remote.py" />
       </list>
     </option>
   </component>
@@ -360,10 +357,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Final/redis_lib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Final/terminal_helper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+        <state relative-caret-position="596">
+          <caret line="749" column="39" selection-start-line="749" selection-start-column="39" selection-end-line="749" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Final/otherUser_terminal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="596">
+          <caret line="113" column="15" lean-forward="true" selection-start-line="113" selection-start-column="15" selection-end-line="113" selection-end-column="15" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
@@ -372,34 +383,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Final/bigtable_remote.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="128" column="4" lean-forward="true" selection-start-line="128" selection-start-column="4" selection-end-line="128" selection-end-column="57" />
+        <state relative-caret-position="-1620">
+          <caret column="5" selection-start-column="5" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Final/bigtable_lib.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="411" column="4" selection-start-line="411" selection-start-column="4" selection-end-line="411" selection-end-column="4" />
+        <state relative-caret-position="298">
+          <caret line="413" column="51" lean-forward="true" selection-start-line="413" selection-start-column="51" selection-end-line="413" selection-end-column="51" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Final/redis_lib.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Final/otherUser_terminal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2246">
-          <caret line="151" column="31" lean-forward="true" selection-start-line="151" selection-start-column="31" selection-end-line="151" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
