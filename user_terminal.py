@@ -1,4 +1,3 @@
-from terminal_helper import *
 from personal_information import *
 from product_information import *
 from otherUser_terminal import *

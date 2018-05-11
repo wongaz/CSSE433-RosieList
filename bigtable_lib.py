@@ -140,6 +140,7 @@ def display_transaction(conn):
     print("Product ID:", end=' ')
     print((row[b'Product:PID']))
 
+
 @connect
 def add_product(conn):
     print('Enter Product ID')

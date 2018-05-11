@@ -1,1 +1,0 @@
-# CSSE433-RosieList

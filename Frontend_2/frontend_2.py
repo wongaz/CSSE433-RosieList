@@ -12,14 +12,14 @@ tagTable = 'Rosie-List-Tags'
 
 @connect
 def login(conn):
-    inputUsername = 0
-    while inputUsername == 0:
-        print 'Enter Username (q to return to main menu)'
-        user = raw_input()
+    inputUsername = None
+    while inputUsername is None:
+        print('Enter Username (q to return to main menu)')
+        user = input()
         if user == 'q':
             return
-        if(not has_row(user, userTable)):
-            print "Username not in database"
+        if not has_row(user, userTable):
+            print("Username not in database")
         else:
             userTerminal(user)
     return
@@ -28,12 +28,12 @@ def login(conn):
 def userTerminal(username):
     persist = 1
     while (persist == 1):
-        print "Enter a command:"
-        print "1 - Personal Information"
-        print "2 - Products"
-        print "3 - Other Users"
-        print "q - logout"
-        command = raw_input()
+        print("Enter a command:")
+        print("1 - Personal Information")
+        print("2 - Products")
+        print("3 - Other Users")
+        print("q - logout")
+        command = input()
 
         if command == '1':
             personalTerminal(username)
@@ -48,8 +48,8 @@ def userTerminal(username):
             persist = 0
 
         if persist == 1:
-            print "Continue (Y/n)"
-            command = raw_input()
+            print("Continue (Y/n)")
+            command = input()
             if command == 'n':
                 persist = 0
 

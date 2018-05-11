@@ -24,9 +24,12 @@ def convertStringToArray(inputString):
     result = inputString.split("|")
     return result
 
-def hasTable(name_of_table):
+@connection
+def hasTable(connection, name_of_table):
     tableList = connection.tables()
     return (name_of_table in tableList)
+
+
 
 def hasRow(name_of_row, name_of_table):
     table = connection.table(name_of_table)
@@ -228,7 +231,6 @@ def addTransaction():
     createTransaction(tid, buyer, seller, pid)
     addTransactionToUsers(buyer, seller, tid)
 
-
 def createTransaction(tid, buyer, seller, pid):
     table = connection.table(transactionTable)
     table.put(tid, {b'Key:TID': tid, 
@@ -255,6 +257,7 @@ def displayTransaction():
     print(row[b'Users:seller']) 
     print("Product ID:",)
     print(row[b'Product:PID'])
+
 
 def addProduct():
     print('Enter username of product seller')

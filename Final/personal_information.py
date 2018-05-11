@@ -1,24 +1,29 @@
-from terminal_helper import *
+#from terminal_helper import *
 from local_redis import *
+from bigtable_lib import *
+from bigtable_helper import *
+from redis_lib import *
+from neo4j_lib import *
 import happybase
 #Curtis Local machine
 #connection = happybase.Connection('dhcp-137-112-104-218.rose-hulman.edu', 9090)
 #Our Virtual Machine
-#connection = happybase.Connection('433-19.csse.rose-hulman.edu', 42970) 
+#connection = happybase.Connection('433-19.csse.rose-hulman.edu', 42970)
 #connection.open()
 
-def displayUser(user):
+@connect
+def displayUser(connection,user):
     table = connection.table(userTable)
     row = table.row(user)
     if(not hasRow(user, userTable)):
-        print "Username not in database"
+        print("Username not in database")
         return
-    print "Username:",
-    print(row[b'Key:user'])
-    print "Name:",
-    print(row[b'Bio:lName'] + ", " + row[b'Bio:fName']) 
-    print "Email:",
-    print(row[b'Bio:email'])
+    print("Username:", end=' ')
+    print((row[b'Key:user']))
+    print("Name:", end=' ')
+    print((row[b'Bio:lName'] + ", " + row[b'Bio:fName'])) 
+    print("Email:", end=' ')
+    print((row[b'Bio:email']))
     tHistory = convertStringToArray(row[b'Transactions:tHistory'])
     rHistory = convertStringToArray(row[b'Transactions:rHistory'])
     products = convertStringToArray(row[b'Transactions:products'])
@@ -28,22 +33,24 @@ def displayUser(user):
     printProductArray(products)
     printReviewArray(reviews)
 
-def editBio(user):
+@connect
+def editBio(connection,user):
     table = connection.table(userTable)
-    print "Select a field to edit:"
-    print "1 - Name"
-    print "2 - Email"
-    command = raw_input()
+    print("Select a field to edit:")
+    print("1 - Name")
+    print("2 - Email")
+    command = input()
     if command == '1':
-        print "Enter a new first name"
-        fName = raw_input()
-        print "Enter a new last name"
-        lName = raw_input()
+        print("Enter a new first name")
+        fName = input()
+        print("Enter a new last name")
+        lName = input()
         table.put(user, {b'Bio:fName': fName, b'Bio:lName': lName})
     if command == '2':
-        print "Enter a new email"
-        email = raw_input()
+        print("Enter a new email")
+        email = input()
         table.put(user, {b'Bio:email': email})
+
 
 def listTransactions(user):
     uTable = connection.table(userTable)
@@ -52,28 +59,28 @@ def listTransactions(user):
     for tid in tHistory:
         table = connection.table(transactionTable)
         row = table.row(tid)
-        print ""
-        print "Transaction ID:",
-        print(row[b'Key:TID'])
-        print "Buyer Username:",
-        print(row[b'Users:buyer'])
-        print "Seller Username:",
-        print(row[b'Users:seller']) 
-        print "Product ID:",
-        print(row[b'Product:PID'])
+        print("")
+        print("Transaction ID:", end=' ')
+        print((row[b'Key:TID']))
+        print("Buyer Username:", end=' ')
+        print((row[b'Users:buyer']))
+        print("Seller Username:", end=' ')
+        print((row[b'Users:seller'])) 
+        print("Product ID:", end=' ')
+        print((row[b'Product:PID']))
 
 def deleteTransactionFromUser(user):
     table = connection.table(transactionTable)
     uTable = connection.table(userTable)
-    print "Enter a tid"
-    tid = raw_input()
+    print("Enter a tid")
+    tid = input()
     if(not hasRow(tid, transactionTable)):
-        print "Rid eID not in database"
+        print("Rid eID not in database")
         return
     row = uTable.row(user)
     userTransactions = convertStringToArray(row[b'Transactions:tHistory'])
     if not tid in userTransactions:
-        print "Transaction does not involve this user, cannot be deleted"
+        print("Transaction does not involve this user, cannot be deleted")
         return
     tRow = table.row(tid)
     buyer = tRow['Users:buyer']
@@ -88,28 +95,28 @@ def listRides(user):
     rHistory = convertStringToArray(uRow[b'Transactions:rHistory'])
     table = connection.table(rideTable)
     for rid in rHistory:
-        print ""
+        print("")
         row = table.row(rid)
-        print "Ride ID:",
-        print(row[b'Key:RID'])
-        print "Rider Username:",
-        print(row[b'Users:rider'])
-        print "Driver Username:",
-        print(row[b'Users:driver']) 
-        print "Destination:",
-        print(row[b'Info:destination'])
-        print "Mileage:",
-        print(row[b'Info:mileage'])
-        print "Price:",
-        print(row[b'Info:price'])
+        print("Ride ID:", end=' ')
+        print((row[b'Key:RID']))
+        print("Rider Username:", end=' ')
+        print((row[b'Users:rider']))
+        print("Driver Username:", end=' ')
+        print((row[b'Users:driver'])) 
+        print("Destination:", end=' ')
+        print((row[b'Info:destination']))
+        print("Mileage:", end=' ')
+        print((row[b'Info:mileage']))
+        print("Price:", end=' ')
+        print((row[b'Info:price']))
 
 def deleteRideFromUser(user):
     table = connection.table(rideTable)
     uTable = connection.table(userTable)
-    print "Enter a rid"
-    rid = raw_input()
+    print("Enter a rid")
+    rid = input()
     if(not hasRow(rid, rideTable)):
-        print "Ride ID not in database"
+        print("Ride ID not in database")
         return
     row = uTable.row(user)
     userRides = convertStringToArray(row[b'Transactions:rHistory'])
@@ -130,30 +137,30 @@ def listReviews(user):
     table = connection.table(reviewTable)
     for rvid in reviews:
         row = table.row(rvid)
-        print ""
-        print "Review ID:",
-        print(row[b'Key:RVID'])
-        print "Reviewer Username:",
-        print(row[b'Users:reviewer'])
-        print "Reviewed Username:",
-        print(row[b'Users:reviewed']) 
-        print "Review Contents:",
-        print(row[b'Info:contents'])
+        print("")
+        print("Review ID:", end=' ')
+        print((row[b'Key:RVID']))
+        print("Reviewer Username:", end=' ')
+        print((row[b'Users:reviewer']))
+        print("Reviewed Username:", end=' ')
+        print((row[b'Users:reviewed'])) 
+        print("Review Contents:", end=' ')
+        print((row[b'Info:contents']))
 
 def personalTerminal(user):
     persist = 1
     while(persist == 1):
-        print "Enter a command:"
-        print "1 - Print Bio"
-        print "2 - Edit Bio"
-        print "3 - List Transactions"
-        print "4 - Delete Transactions"
-        print "5 - List Rides"
-        print "6 - Delete Rides"
-        print "7 - List reviews"
-        print "8 - Print history"
-        print "q - Return to root menu"
-        command = raw_input()
+        print("Enter a command:")
+        print("1 - Print Bio")
+        print("2 - Edit Bio")
+        print("3 - List Transactions")
+        print("4 - Delete Transactions")
+        print("5 - List Rides")
+        print("6 - Delete Rides")
+        print("7 - List reviews")
+        print("8 - Print history")
+        print("q - Return to root menu")
+        command = input()
         if command == '1':
             displayUser(user)
 
@@ -178,13 +185,13 @@ def personalTerminal(user):
         if command == '8':
             history = read_history(user)
             for data in history:
-                print data
+                print(data)
 
         if command == 'q':
             persist = 0
         
         if persist == 1:
-            print "Continue (Y/n)"
-            command = raw_input()
+            print("Continue (Y/n)")
+            command = input()
             if command == 'n':
                 persist = 0

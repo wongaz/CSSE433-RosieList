@@ -2,10 +2,10 @@ from terminal_helper import *
 from local_redis import *
 import happybase
 #Curtis Local machine
-connection = happybase.Connection('dhcp-137-112-104-218.rose-hulman.edu', 9090) 
+#connection = happybase.Connection('dhcp-137-112-104-218.rose-hulman.edu', 9090)
 #Our Virtual Machine
 #connection = happybase.Connection('433-19.csse.rose-hulman.edu', 42970) 
-connection.open()
+#connection.open()
 
 def displayUser(user):
     table = connection.table(userTable)
@@ -114,7 +114,7 @@ def deleteRideFromUser(user):
     row = uTable.row(user)
     userRides = convertStringToArray(row[b'Transactions:rHistory'])
     if not rid in userRides:
-        print "Rid edoes not involve this user, cannot be deleted"
+        print("Ride does not involve this user, cannot be deleted")
         return
     rRow = table.row(rid)
     driver = rRow['Users:driver']
