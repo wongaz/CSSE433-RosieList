@@ -8,7 +8,7 @@ from bigtable_remote import *
 @connect
 def displayUser(connection, user):
     table = connection.table(userTable)
-    row = table.row(user)
+    row = table.row(user.encode('utf-8'))
     if(not hasRow(user, userTable)):
         print("Username not in database")
         return

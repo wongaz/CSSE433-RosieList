@@ -21,7 +21,7 @@ tagTable = 'Rosie-List-Tags'
 @connect
 def displayProductWithId(connection, pid):
     table = connection.table(productTable)
-    row = table.row(pid)
+    row = table.row(pid.encode('utf-8'))
     if(not hasRow(pid, productTable)):
         print("Product ID not in database")
         return
@@ -58,7 +58,7 @@ def editProduct(connection, user):
     if(not hasRow(pid, productTable)):
         print("Product ID not in database")
         return
-    row = uTable.row(user)
+    row = uTable.row(user.encode('utf-8'))
     userProducts = convertStringToArray(row[b'Transactions:products'])
     if not pid in userProducts:
         print("Product belongs to a different user, cannot be edited")
@@ -128,7 +128,7 @@ def deleteProductWithUser(connection,user):
     if(not hasRow(pid, productTable)):
         print("Product ID not in database")
         return
-    row = uTable.row(user)
+    row = uTable.row(user.encode('utf-8'))
     userProducts = convertStringToArray(row[b'Transactions:products'])
     if not pid in userProducts:
         print("Product belongs to a different user, cannot be deleted")
@@ -151,7 +151,7 @@ def tagProductInUser(connection,user):
     if(not hasRow(pid, productTable)):
         print("Product ID not in database")
         return
-    row = uTable.row(user)
+    row = uTable.row(user.encode('utf-8'))
     userProducts = convertStringToArray(row[b'Transactions:products'])
     if not pid in userProducts:
         print("Product belongs to a different user, cannot be tagged")
@@ -172,7 +172,7 @@ def tagProductInUser(connection,user):
             return
         createTagWithID(tgid)
     table = connection.table(productTable)
-    row = table.row(pid)
+    row = table.row(pid.encode('utf-8'))
     arrayTags = convertStringToArray(row[b'Tags:tags'])
     arrayTags.append(tgid)
     stringTags = convertArrayToString(arrayTags)
@@ -192,10 +192,10 @@ def createTagWithID(tgid):
 def buyProduct(connection, user):
     table = connection.table(productTable)
     uTable = connection.table(userTable)
-    uRow = uTable.row(user)
+    uRow = uTable.row(user.encode('utf-8'))
     print("Enter a pid")
     pid = input()
-    row = table.row(pid)
+    row = table.row(pid.encode('utf-8'))
     if(not hasRow(pid, productTable)):
         print("Product ID not in database")
         return

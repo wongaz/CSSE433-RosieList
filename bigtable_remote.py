@@ -151,13 +151,13 @@ def edit_bio_email(connection,user,email):
 @connect
 def remove_transaction_from_user(connection,user1, user2, tid):
     table1 = connection.table(user_table)
-    row1 = table1.row(user1)
+    row1 = table1.row(user1.encode('utf-8'))
     transactions1 = convertStringToArray(row1[b'Transactions:tHistory'])
     transactions1.remove(tid)
     table1.put(user1, {b'Transactions:tHistory': convertArrayToString(transactions1)})
 
     table2 = connection.table(user_table)
-    row2 = table2.row(user2)
+    row2 = table2.row(user2.encode('utf-8'))
     transactions2 = convertStringToArray(row2[b'Transactions:tHistory'])
     transactions2.remove(tid)
     table2.put(user2, {b'Transactions:tHistory': convertArrayToString(transactions2)})
@@ -178,13 +178,13 @@ def update_user_reviews(conn, userName, stringReviews):
 @connect
 def remove_rider_from_user(connection,user1, user2, tid):
     table1 = connection.table(user_table)
-    row1 = table1.row(user1)
+    row1 = table1.row(user1.encode('utf-8'))
     transactions1 = convertStringToArray(row1[b'Transactions:rHistory'])
     transactions1.remove(tid)
     table1.put(user1, {b'Transactions:rHistory': convertArrayToString(transactions1)})
 
     table2 = connection.table(user_table)
-    row2 = table2.row(user2)
+    row2 = table2.row(user2.encode('utf-8'))
     transactions2 = convertStringToArray(row2[b'Transactions:rHistory'])
     transactions2.remove(tid)
     table2.put(user2, {b'Transactions:rHistory': convertArrayToString(transactions2)})

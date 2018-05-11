@@ -394,7 +394,7 @@ def addReviewToUser(connection, userName, rid):
         print("Review does not exist in database")
         return
     uTable = connection.table(user_table)
-    uRow = uTable.row(userName)
+    uRow = uTable.row(userName.encode('utf-8'))
     userReviews = convertStringToArray(uRow[b'Transactions:reviews'])
     userReviews.append(rid)
     stringReviews = convertArrayToString(userReviews)
@@ -424,8 +424,8 @@ def addRideToUsers(connection, driver, rider, rid):
         print("Ride does not exist in database")
         return
     uTable = connection.table(user_table)
-    driverRow = uTable.row(driver)
-    riderRow = uTable.row(rider)
+    driverRow = uTable.row(driver.encode('utf-8'))
+    riderRow = uTable.row(rider.encode('utf-8'))
     driverDrives = convertStringToArray(driverRow[b'Transactions:rHistory'])
     riderDrives = convertStringToArray(riderRow[b'Transactions:rHistory'])
     driverDrives.append(rid)

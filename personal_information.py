@@ -15,7 +15,7 @@ tagTable = 'Rosie-List-Tags'
 @connect
 def displayUser(connection,user):
     table = connection.table(userTable)
-    row = table.row(user)
+    row = table.row(user.encode('utf-8'))
     if(not hasRow(user, userTable)):
         print("Username not in database")
         return
@@ -60,11 +60,11 @@ def editBio(connection, user):
 @connect
 def listTransactions(connection,user):
     uTable = connection.table(userTable)
-    uRow = uTable.row(user)
+    uRow = uTable.row(user.encode('utf-8'))
     tHistory = convertStringToArray(uRow[b'Transactions:tHistory'])
     for tid in tHistory:
         table = connection.table(transactionTable)
-        row = table.row(tid)
+        row = table.row(tid.encode('utf-8'))
         print("")
         print("Transaction ID:", end=' ')
         print((row[b'Key:TID']))
@@ -84,12 +84,12 @@ def deleteTransactionFromUser(connection, user):
     if(not hasRow(tid, transactionTable)):
         print("Rid eID not in database")
         return
-    row = uTable.row(user)
+    row = uTable.row(user.encode('utf-8'))
     userTransactions = convertStringToArray(row[b'Transactions:tHistory'])
     if not tid in userTransactions:
         print("Transaction does not involve this user, cannot be deleted")
         return
-    tRow = table.row(tid)
+    tRow = table.row(tid.encode('utf-8'))
     buyer = tRow['Users:buyer']
     seller = tRow['Users:seller']
     remove_transaction_from_user(buyer, seller,tid)
@@ -100,12 +100,12 @@ def deleteTransactionFromUser(connection, user):
 @connect
 def listRides(connection,user):
     uTable = connection.table(userTable)
-    uRow = uTable.row(user)
+    uRow = uTable.row(user.encode('utf-8'))
     rHistory = convertStringToArray(uRow[b'Transactions:rHistory'])
     table = connection.table(rideTable)
     for rid in rHistory:
         print("")
-        row = table.row(rid)
+        row = table.row(rid.encode('utf-8'))
         print("Ride ID:", end=' ')
         print((row[b'Key:RID']))
         print("Rider Username:", end=' ')
@@ -128,12 +128,12 @@ def deleteRideFromUser(connection,user):
     if(not hasRow(rid, rideTable)):
         print("Ride ID not in database")
         return
-    row = uTable.row(user)
+    row = uTable.row(user.encode('utf-8'))
     userRides = convertStringToArray(row[b'Transactions:rHistory'])
     if not rid in userRides:
         print("Ride does not involve this user, cannot be deleted")
         return
-    rRow = table.row(rid)
+    rRow = table.row(rid.encode('utf-8'))
     driver = rRow['Users:driver']
     rider = rRow['Users:rider']
     job = q.enqueue(remove_rider_from_user, rider, driver, rid)
@@ -143,11 +143,11 @@ def deleteRideFromUser(connection,user):
 @connect
 def listReviews(connection,user):
     uTable = connection.table(userTable)
-    uRow = uTable.row(user)
+    uRow = uTable.row(user.encode('utf-8'))
     reviews = convertStringToArray(uRow[b'Transactions:reviews'])
     table = connection.table(reviewTable)
     for rvid in reviews:
-        row = table.row(rvid)
+        row = table.row(rvid.encode('utf-8'))
         print("")
         print("Review ID:", end=' ')
         print((row[b'Key:RVID']))

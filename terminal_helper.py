@@ -58,7 +58,7 @@ def printProductArray(connection,pidList):
     else:
         print(attribute + ":",)
         for pid in pidList:
-            pRow = pTable.row(pid)
+            pRow = pTable.row(pid.encode('utf-8'))
             print (pRow[b'Info:name']) + "(PID:" + pid + ")" + ",",
         print("")
 
@@ -72,9 +72,9 @@ def printReviewArray(connection,rvidList):
     else:
         print(attribute + ":",)
         for rvid in rvidList:
-            rRow = rTable.row(rvid)
+            rRow = rTable.row(rvid.encode('utf-8'))
             reviewerId = rRow[b'Users:reviewer']
-            uRow = uTable.row(reviewerId)
+            uRow = uTable.row(reviewerId.encode('utf-8'))
             print("[" + (uRow[b'Bio:fName']) + " " + uRow[b'Bio:lName'] + "(Reveiw ID:" + rvid + ")" + "]" + ",")
         print("")
 
@@ -89,14 +89,14 @@ def printTransactionArray(connection, transactionList, userId):
     else:
         print(attribute + "-")
         for tid in transactionList:
-            tRow = tTable.row(tid)
+            tRow = tTable.row(tid.encode('utf-8'))
             buyerId = tRow[b'Users:buyer']
             sellerId = tRow[b'Users:seller']
             pid = tRow[b'Product:PID']
 
-            pRow = pTable.row(pid)
-            buyerRow = uTable.row(buyerId)
-            sellerRow = uTable.row(sellerId)
+            pRow = pTable.row(pid.encode('utf-8'))
+            buyerRow = uTable.row(buyerId.encode('utf-8'))
+            sellerRow = uTable.row(sellerId.encode('utf-8'))
 
             state = ""
             otherState = ""
@@ -125,13 +125,13 @@ def printRideArray(connection,rideList, userId):
     else:
         print(attribute + "-")
         for rid in rideList:
-            rRow = rTable.row(rid)
+            rRow = rTable.row(rid.encode('utf-8'))
             driverId = rRow[b'Users:driver']
             riderId = rRow[b'Users:rider']
             destination = rRow[b'Info:destination']
 
-            driverRow = uTable.row(driverId)
-            riderRow = uTable.row(riderId)
+            driverRow = uTable.row(driverId.encode('utf-8'))
+            riderRow = uTable.row(riderId.encode('utf-8'))
 
             state = ""
             otherState = ""
@@ -281,7 +281,7 @@ def printTagArray(connection,tagList):
     else:
         print(attribute + ":",)
         for tgid in tagList:
-            tRow = tTable.row(tgid)
+            tRow = tTable.row(tgid.encode('utf-8'))
             print(tRow[b'Info:name']) + "(Tag ID:" + tgid + ")" + ",",
         print("")
 
@@ -318,7 +318,7 @@ def addProductToUser(connection,userName, pid):
         print("Product does not exist in database")
         return
     uTable = connection.table(userTable)
-    uRow = uTable.row(userName)
+    uRow = uTable.row(userName.encode('utf-8'))
     userProducts = convertStringToArray(uRow[b'Transactions:products'])
     userProducts.append(pid)
     stringProducts = convertArrayToString(userProducts)
@@ -337,8 +337,8 @@ def addTransactionToUsers(connection,buyer, seller, tid):
         print("Review does not exist in database")
         return
     uTable = connection.table(userTable)
-    buyerRow = uTable.row(buyer)
-    sellerRow = uTable.row(seller)
+    buyerRow = uTable.row(buyer.encode('utf-8'))
+    sellerRow = uTable.row(seller.encode('utf-8'))
     buyerHistory = convertStringToArray(buyerRow[b'Transactions:tHistory'])
     sellerHistory = convertStringToArray(sellerRow[b'Transactions:tHistory'])
     buyerHistory.append(tid)
@@ -351,7 +351,7 @@ def addTransactionToUsers(connection,buyer, seller, tid):
 @connect
 def userHasProduct(connection,user, pid):
     table = connection.table(userTable)
-    row = table.row(user)
+    row = table.row(user.encode('utf-8'))
     productList = convertStringToArray(row[b'Transactions:products'])
     if pid in productList:
         return True
@@ -361,7 +361,7 @@ def userHasProduct(connection,user, pid):
 @connect
 def removeProductFromUser(connection,user, pid):
     table = connection.table(userTable)
-    row = table.row(user)
+    row = table.row(user.encode('utf-8'))
     products = convertStringToArray(row[b'Transactions:products'])
     if pid in products:
         products.remove(pid)
