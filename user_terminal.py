@@ -1,6 +1,7 @@
 from personal_information import *
 from product_information import *
 from otherUser_terminal import *
+from terminal_helper import *
 
 userTable = 'Rosie-List-Users'
 transactionTable = 'Rosie-List-Transactions'
