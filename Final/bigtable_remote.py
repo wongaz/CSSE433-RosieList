@@ -161,6 +161,8 @@ def removeTransactionFromUser(connection,user1, user2, tid):
     transactions2 = convertStringToArray(row2[b'Transactions:tHistory'])
     transactions2.remove(tid)
     table2.put(user2, {b'Transactions:tHistory': convertArrayToString(transactions2)})
+    table = connection.table(transaction_table)
+    table.delete(tid)
 
 
 
