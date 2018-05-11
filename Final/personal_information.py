@@ -1,4 +1,4 @@
-#from terminal_helper import *
+from terminal_helper import *
 from local_redis import *
 from bigtable_lib import *
 from bigtable_helper import *
@@ -52,7 +52,7 @@ def editBio(connection,user):
         table.put(user, {b'Bio:email': email})
 
 
-def listTransactions(user):
+def listTransactions(connection,user):
     uTable = connection.table(userTable)
     uRow = uTable.row(user)
     tHistory = convertStringToArray(uRow[b'Transactions:tHistory'])
@@ -69,7 +69,8 @@ def listTransactions(user):
         print("Product ID:", end=' ')
         print((row[b'Product:PID']))
 
-def deleteTransactionFromUser(user):
+@connect
+def deleteTransactionFromUser(connection,user):
     table = connection.table(transactionTable)
     uTable = connection.table(userTable)
     print("Enter a tid")
@@ -89,7 +90,8 @@ def deleteTransactionFromUser(user):
     removeTransactionFromUser(seller, tid)
     table.delete(tid)
 
-def listRides(user):
+@connect
+def listRides(connection,user):
     uTable = connection.table(userTable)
     uRow = uTable.row(user)
     rHistory = convertStringToArray(uRow[b'Transactions:rHistory'])
@@ -110,7 +112,8 @@ def listRides(user):
         print("Price:", end=' ')
         print((row[b'Info:price']))
 
-def deleteRideFromUser(user):
+@connect
+def deleteRideFromUser(connection,user):
     table = connection.table(rideTable)
     uTable = connection.table(userTable)
     print("Enter a rid")
@@ -130,7 +133,8 @@ def deleteRideFromUser(user):
     removeRideFromUser(rider, rid)
     table.delete(rid)
 
-def listReviews(user):
+@connect
+def listReviews(connection,user):
     uTable = connection.table(userTable)
     uRow = uTable.row(user)
     reviews = convertStringToArray(uRow[b'Transactions:reviews'])
