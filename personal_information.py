@@ -1,9 +1,8 @@
-from Final.terminal_helper import *
-from Final.local_redis import *
-from Final.bigtable_lib import *
-from Final.bigtable_helper import *
-from Final.redis_lib import *
-from Final.neo4j_lib import *
+from  bigtable_helper import *
+from  bigtable_lib import *
+from  local_redis import *
+from  redis_lib import *
+from  terminal_helper import *
 
 userTable = 'Rosie-List-Users'
 transactionTable = 'Rosie-List-Transactions'

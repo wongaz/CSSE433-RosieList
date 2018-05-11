@@ -1,8 +1,11 @@
-from Final.terminal_helper import *
-from Final.local_redis import *
-from Final.bigtable_lib import *
 import pickle
-from Final.redis_lib import *
+
+from  bigtable_lib import *
+from  local_redis import *
+from  redis_lib import *
+
+from terminal_helper import *
+
 pickle.HIGHEST_PROTOCOL = 2
 from rq import Queue
 queue_conn = redis.StrictRedis(host='433-19.csse.rose-hulman.edu', port=6379, db=0)

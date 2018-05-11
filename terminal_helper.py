@@ -1,5 +1,5 @@
 
-from Final.bigtable_helper import *
+from bigtable_helper import *
 userTable = 'Rosie-List-Users'
 transactionTable = 'Rosie-List-Transactions'
 rideTable = 'Rosie-List-Rides'

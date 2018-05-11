@@ -1,9 +1,11 @@
-from Final.bigtable_remote import *
 import pickle
 
-from Final.redis_lib import *
-from  Final.bigtable_helper import *
-import Final.neo4j_lib
+from   bigtable_helper import *
+from  bigtable_remote import *
+from  redis_lib import *
+
+import neo4j_lib
+
 pickle.HIGHEST_PROTOCOL = 2
 from rq import Queue
 import datetime
@@ -183,7 +185,7 @@ def add_product(conn):
     job = q.enqueue(create_product, pid, name, desc, tags, price)
     while job.result is None:
         continue
-    job = q.enqueue(Final.neo4j_lib.add_product, pid, name, desc, tags, price)
+    job = q.enqueue(neo4j_lib.add_product, pid, name, desc, tags, price)
     while job.result is None:
         continue
     if job.result ==1:
@@ -357,7 +359,7 @@ def add_tag(conn):
     while job.result is None:
         continue
 
-    job = q.enqueue(Final.neo4j_lib.add_tag, tgid, name)
+    job = q.enqueue(neo4j_lib.add_tag, tgid, name)
     while job.result is None:
         continue
     if job.result ==1:
