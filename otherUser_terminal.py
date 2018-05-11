@@ -1,9 +1,10 @@
+from __future__ import print_function
 from terminal_helper import *
 from local_redis import *
 from bigtable_helper import *
 from bigtable_lib import *
 from bigtable_remote import *
-from __future__ import print_function
+
 
 
 @connect
@@ -64,7 +65,7 @@ def leaveReview(connection, user, loggedInUser):
         print("Must enter contents for review")
         return
     job = q.enqueue(create_review, rvid, patron, provider, contents)
-    q.enqueue(addReviewToUser, provider, rvid)
+    addReviewToUser(provider, rvid)
 
 @connect
 def registerRide(connection, user, loggedInUser):
