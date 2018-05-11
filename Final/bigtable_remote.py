@@ -149,7 +149,7 @@ def edit_bio_email(connection,user,email):
     table.put(user, {b'Bio:email': email})
 
 @connect
-def removeTransactionFromUser(connection,user1, user2, tid):
+def remove_transaction_from_user(connection,user1, user2, tid):
     table1 = connection.table(user_table)
     row1 = table1.row(user1)
     transactions1 = convertStringToArray(row1[b'Transactions:tHistory'])
@@ -164,5 +164,20 @@ def removeTransactionFromUser(connection,user1, user2, tid):
     table = connection.table(transaction_table)
     table.delete(tid)
 
+@connect
+def remove_rider_from_user(connection,user1, user2, tid):
+    table1 = connection.table(user_table)
+    row1 = table1.row(user1)
+    transactions1 = convertStringToArray(row1[b'Transactions:rHistory'])
+    transactions1.remove(tid)
+    table1.put(user1, {b'Transactions:rHistory': convertArrayToString(transactions1)})
+
+    table2 = connection.table(user_table)
+    row2 = table2.row(user2)
+    transactions2 = convertStringToArray(row2[b'Transactions:rHistory'])
+    transactions2.remove(tid)
+    table2.put(user2, {b'Transactions:rHistory': convertArrayToString(transactions2)})
+    table = connection.table(transaction_table)
+    table.delete(tid)
 
 
