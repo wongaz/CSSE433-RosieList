@@ -131,8 +131,8 @@ def printRideArray(connection,rideList, userId):
             riderId = rRow[b'Users:rider']
             destination = rRow[b'Info:destination']
 
-            driverRow = uTable.row(driverId.encode('utf-8'))
-            riderRow = uTable.row(riderId.encode('utf-8'))
+            driverRow = uTable.row(driverId)
+            riderRow = uTable.row(riderId)
 
             state = ""
             otherState = ""
@@ -145,7 +145,7 @@ def printRideArray(connection,rideList, userId):
                 state = "User was Rider, "
                 otherState = "Driver: ".encode("utf-8") + driverRow[b'Bio:fName'] + " ".encode("utf-8") + driverRow[b'Bio:lName']
 
-            print("[".encode("utf-8") + state + " ".encode("utf-8") + otherState + ", Destination: ".encode("utf-8") + destination + ", Ride ID: ".encode("utf-8") + rid + "]".encode("utf-8"))
+            print("[".encode("utf-8") + state.encode("utf-8") + " ".encode("utf-8") + otherState.encode("utf-8") + ", Destination: ".encode("utf-8") + destination + ", Ride ID: ".encode("utf-8") + rid.encode("utf-8") + "]".encode("utf-8"))
         print("")
 
 
