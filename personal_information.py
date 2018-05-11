@@ -89,7 +89,6 @@ def deleteTransactionFromUser(connection, user):
     tRow = table.row(tid.encode('utf-8'))
     buyer = tRow[b'Users:buyer']
     seller = tRow[b'Users:seller']
-    remove_transaction_from_user(buyer, seller,tid)
     q.enqueue(remove_transaction_from_user, buyer, seller, tid)
 
 @connect
