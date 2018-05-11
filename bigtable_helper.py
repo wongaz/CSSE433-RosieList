@@ -25,18 +25,18 @@ def has_row(name_of_row, name_of_table, conn):
 
 def print_array(attribute, entities):
     if len(entities) == 0:
-        print(attribute + ": None")
+        print(attribute + ": None".encode('utf-8'))
     else:
-        print(attribute + ":", end=' ')
+        print(attribute + ":".encode('utf-8'), end=' ')
         for data in entities:
-            print(data + ",", end=' ')
+            print(data + ",".encode('utf-8'), end=' ')
         print("")
 
 
 def convert_array_to_string(array):
     result = ""
     for data in array:
-        result = result + "|" + data
+        result = result + "|".encode('utf-8') + data
     return result[1:]
 
 

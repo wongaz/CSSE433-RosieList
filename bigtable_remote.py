@@ -10,7 +10,7 @@ tag_table = 'Rosie-List-Tags'
 def convertArrayToString(array):
     result = ""
     for data in array:
-        result = result + "|" + data
+        result = result + "|".encode('utf-8') + data
     return result[1:]
 
 def convertStringToArray(inputString):
