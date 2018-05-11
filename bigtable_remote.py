@@ -1,5 +1,5 @@
 from bigtable_helper import *
-
+from terminal_helper import *
 user_table = 'Rosie-List-Users'
 transaction_table = 'Rosie-List-Transactions'
 ride_table = 'Rosie-List-Rides'
@@ -7,17 +7,6 @@ review_table = 'Rosie-List-Reviews'
 product_table = 'Rosie-List-Products'
 tag_table = 'Rosie-List-Tags'
 
-def convertArrayToString(array):
-    result = ""
-    for data in array:
-        result = result + "|".encode('utf-8') + data
-    return result[1:]
-
-def convertStringToArray(inputString):
-    if(inputString == ""):
-        return []
-    result = inputString.split("|")
-    return result
 
 @connect
 def remote_clear(conn):

@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="61c83805-a563-49c0-aaa9-e909699ead41" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bigtable_lib.py" afterPath="$PROJECT_DIR$/bigtable_lib.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bigtable_remote.py" afterPath="$PROJECT_DIR$/bigtable_remote.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherUser_terminal.py" afterPath="$PROJECT_DIR$/otherUser_terminal.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/personal_information.py" afterPath="$PROJECT_DIR$/personal_information.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/product_information.py" afterPath="$PROJECT_DIR$/product_information.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/terminal_helper.py" afterPath="$PROJECT_DIR$/terminal_helper.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,8 +44,8 @@
       <file leaf-file-name="terminal_helper.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/terminal_helper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="35" column="4" lean-forward="true" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
+            <state relative-caret-position="53">
+              <caret line="62" column="49" lean-forward="false" selection-start-line="62" selection-start-column="49" selection-end-line="62" selection-end-column="49" />
               <folding>
                 <element signature="e#1#30#0" expanded="true" />
               </folding>
@@ -83,9 +80,11 @@
       <file leaf-file-name="bigtable_remote.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bigtable_remote.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1890">
-              <caret line="90" column="9" lean-forward="true" selection-start-line="90" selection-start-column="9" selection-end-line="90" selection-end-column="9" />
-              <folding />
+            <state relative-caret-position="192">
+              <caret line="130" column="9" lean-forward="true" selection-start-line="130" selection-start-column="9" selection-end-line="130" selection-end-column="9" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -105,8 +104,8 @@
       <file leaf-file-name="personal_information.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/personal_information.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="87" column="25" lean-forward="false" selection-start-line="87" selection-start-column="25" selection-end-line="87" selection-end-column="25" />
+            <state relative-caret-position="234">
+              <caret line="47" column="2" lean-forward="true" selection-start-line="47" selection-start-column="2" selection-end-line="47" selection-end-column="2" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -118,13 +117,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>removeProductFromUser</find>
-      <find>addTransactionToUsers</find>
-      <find>displayUsers</find>
-      <find>displayTransaction</find>
-      <find>displayProduct</find>
-      <find>addUser</find>
-      <find>displayRide</find>
       <find>addReviewToUser</find>
       <find>tagProduct</find>
       <find>userHasProduct</find>
@@ -148,6 +140,13 @@
       <find>addus</find>
       <find>row</find>
       <find>.row</find>
+      <find>displayUser</find>
+      <find>\+[ ]*&quot;</find>
+      <find>convertStringToArray</find>
+      <find>convertStringToArray(row[b'Transactions:tHistory']</find>
+      <find>printTransactionArray</find>
+      <find>edit</find>
+      <find>printReviewArray</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -172,10 +171,10 @@
         <option value="$PROJECT_DIR$/Final/terminal_helper.py" />
         <option value="$PROJECT_DIR$/bigtable_lib.py" />
         <option value="$PROJECT_DIR$/product_information.py" />
-        <option value="$PROJECT_DIR$/bigtable_remote.py" />
         <option value="$PROJECT_DIR$/user_terminal.py" />
-        <option value="$PROJECT_DIR$/terminal_helper.py" />
         <option value="$PROJECT_DIR$/bigtable_helper.py" />
+        <option value="$PROJECT_DIR$/bigtable_remote.py" />
+        <option value="$PROJECT_DIR$/terminal_helper.py" />
         <option value="$PROJECT_DIR$/personal_information.py" />
       </list>
     </option>
@@ -360,7 +359,28 @@
       <option name="project" value="LOCAL" />
       <updated>1526010797513</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="fix">
+      <created>1526011168296</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1526011168296</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fml">
+      <created>1526011610032</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1526011610032</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fml">
+      <created>1526011852797</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1526011852797</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -416,7 +436,8 @@
     <MESSAGE value="remove red" />
     <MESSAGE value="move out final" />
     <MESSAGE value="fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix" />
+    <MESSAGE value="fml" />
+    <option name="LAST_COMMIT_MESSAGE" value="fml" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -597,14 +618,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bigtable_remote.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1890">
-          <caret line="90" column="9" lean-forward="true" selection-start-line="90" selection-start-column="9" selection-end-line="90" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bigtable_lib.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
@@ -667,16 +680,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/terminal_helper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="35" column="4" lean-forward="true" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
-          <folding>
-            <element signature="e#1#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bigtable_helper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="339">
@@ -687,10 +690,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/terminal_helper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="53">
+          <caret line="62" column="49" lean-forward="false" selection-start-line="62" selection-start-column="49" selection-end-line="62" selection-end-column="49" />
+          <folding>
+            <element signature="e#1#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bigtable_remote.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="130" column="9" lean-forward="true" selection-start-line="130" selection-start-column="9" selection-end-line="130" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/personal_information.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="87" column="25" lean-forward="false" selection-start-line="87" selection-start-column="25" selection-end-line="87" selection-end-column="25" />
+        <state relative-caret-position="234">
+          <caret line="47" column="2" lean-forward="true" selection-start-line="47" selection-start-column="2" selection-end-line="47" selection-end-column="2" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>

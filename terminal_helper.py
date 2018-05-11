@@ -23,9 +23,10 @@ def convertArrayToString(array):
     return result[1:]
 
 def convertStringToArray(inputString):
-    if(inputString == ""):
+    temp = inputString.decode('utf-8')
+    if(temp == ""):
         return []
-    result = inputString.split("|")
+    result = temp.split("|")
     return result
 
 @connect
@@ -54,7 +55,7 @@ def printProductArray(connection,pidList):
     pTable = connection.table(productTable)
     attribute = "Products offered"
     if(len(pidList) == 0):
-        print(attribute + ": None".encode('utf-8'))
+        print(attribute + ": None")
     else:
         print(attribute + ":".encode('utf-8'),)
         for pid in pidList:
@@ -68,7 +69,7 @@ def printReviewArray(connection,rvidList):
     uTable = connection.table(userTable)
     attribute = "Reviews by"
     if(len(rvidList) == 0):
-        print(attribute + ": None".encode('utf-8'))
+        print(attribute + ": None")
     else:
         print(attribute + ":".encode('utf-8'),)
         for rvid in rvidList:
@@ -85,7 +86,7 @@ def printTransactionArray(connection, transactionList, userId):
     pTable = connection.table(productTable)
     attribute = "Transactions"
     if(len(transactionList) == 0):
-        print(attribute + ": None".encode('utf-8'))
+        print(attribute + ": None")
     else:
         print(attribute + "-")
         for tid in transactionList:
@@ -121,7 +122,7 @@ def printRideArray(connection,rideList, userId):
     pTable = connection.table(productTable)
     attribute = "Rides"
     if(len(rideList) == 0):
-        print(attribute + ": None".encode('utf-8'))
+        print(attribute + ": None")
     else:
         print(attribute + "-")
         for rid in rideList:

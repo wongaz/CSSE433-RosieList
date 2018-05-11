@@ -47,7 +47,6 @@ def editBio(connection, user):
         print("Enter a new last name")
         lName = input()
 
-        table.put(user, {b'Bio:fName': fName, b'Bio:lName': lName})
         job = q.enqueue(edit_bio_name,user,fName,lName)
         while job.result is None:
             continue
