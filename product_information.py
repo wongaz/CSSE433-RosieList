@@ -21,8 +21,8 @@ tagTable = 'Rosie-List-Tags'
 @connect
 def displayProductWithId(connection, pid):
     table = connection.table(productTable)
-    row = table.row(pid.encode('utf-8'))
-    if(not hasRow(pid, productTable)):
+    row = table.row(pid)
+    if(not hasRow(pid.decode("utf-8"), productTable)):
         print("Product ID not in database")
         return
     print("Product ID:", end=' ')
@@ -43,7 +43,7 @@ def searchProduct(connection):
     table = connection.table(productTable)
     count = 1
     for key, data in table.scan():
-        if name == data['Info:name']:
+        if name == data[b'Info:name']:
             print("")
             print("Match " + str(count))
             displayProductWithId(key)

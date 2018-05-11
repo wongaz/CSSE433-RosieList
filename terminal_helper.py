@@ -278,7 +278,7 @@ def printTagArray(connection,tagList):
     tTable = connection.table(tagTable)
     attribute = "Tags"
     if(len(tagList) == 0):
-        print(attribute + ": None".encode('utf-8'))
+        print(attribute + ": None")
     else:
         print(attribute + ":".encode('utf-8'),)
         for tgid in tagList:
