@@ -1,11 +1,20 @@
 
 from bigtable_helper import *
+import pickle
+
+import redis
+
+pickle.HIGHEST_PROTOCOL = 2
+from rq import Queue
 userTable = 'Rosie-List-Users'
 transactionTable = 'Rosie-List-Transactions'
 rideTable = 'Rosie-List-Rides'
 reviewTable = 'Rosie-List-Reviews'
 productTable = 'Rosie-List-Products'
 tagTable = 'Rosie-List-Tags'
+
+queue_conn = redis.StrictRedis(host='433-19.csse.rose-hulman.edu', port=6379, db=0)
+q = Queue(connection=queue_conn)
 
 def convertArrayToString(array):
     result = ""
@@ -163,7 +172,7 @@ def addUser():
     if(email == ""):
         print("Must enter an email")
         return
-    createUser(user, fName, lName, email)
+    q.enqueue(createUser,user, fName, lName, email)
 
 @connect
 def createUser(connection,user, fName, lName, email):
