@@ -3,6 +3,7 @@ from local_redis import *
 from bigtable_helper import *
 from bigtable_lib import *
 from bigtable_remote import *
+from __future__ import print_function
 
 
 @connect
