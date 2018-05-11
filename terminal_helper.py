@@ -36,7 +36,7 @@ def hasTable(connection, name_of_table):
 @connect
 def hasRow(connection, name_of_row, name_of_table):
     table = connection.table(name_of_table)
-    row = table.row(name_of_row)
+    row = table.row(name_of_row.encode('UTF-8'))
     return any(row)
 
 def printArray(attribute, entities):
