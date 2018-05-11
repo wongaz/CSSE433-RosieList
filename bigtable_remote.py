@@ -143,13 +143,13 @@ def remove_transaction_from_user(connection,user1, user2, tid):
     row1 = table1.row(user1)
     transactions1 = convertStringToArray(row1[b'Transactions:tHistory'])
     transactions1.remove(tid)
-    table1.put(user1, {b'Transactions:tHistory': convertArrayToString(transactions1)})
+    table1.put(user1, {b'Transactions:tHistory': convertArrayToString(transactions1).encode("utf-8")})
 
     table2 = connection.table(user_table)
     row2 = table2.row(user2.encode('utf-8'))
     transactions2 = convertStringToArray(row2[b'Transactions:tHistory'])
     transactions2.remove(tid)
-    table2.put(user2, {b'Transactions:tHistory': convertArrayToString(transactions2)})
+    table2.put(user2, {b'Transactions:tHistory': convertArrayToString(transactions2).encode("utf-8")})
     table = connection.table(transaction_table)
     table.delete(tid)
 
