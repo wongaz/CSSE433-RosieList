@@ -47,15 +47,13 @@ def editBio(connection, user):
         print("Enter a new last name")
         lName = input()
 
-        job = q.enqueue(edit_bio_name,user,fName,lName)
-        while job.result is None:
-            continue
+        q.enqueue(edit_bio_name,user,fName,lName)
+
     if command == '2':
         print("Enter a new email")
         email = input()
-        job = q.enqueue(edit_bio_email, user, email)
-        while job.result is None:
-            continue
+        q.enqueue(edit_bio_email, user, email)
+
 @connect
 def listTransactions(connection,user):
     uTable = connection.table(userTable)
@@ -92,9 +90,7 @@ def deleteTransactionFromUser(connection, user):
     buyer = tRow['Users:buyer']
     seller = tRow['Users:seller']
     remove_transaction_from_user(buyer, seller,tid)
-    job = q.enqueue(remove_transaction_from_user, buyer, seller, tid)
-    while job.result is None:
-        continue
+    q.enqueue(remove_transaction_from_user, buyer, seller, tid)
 
 @connect
 def listRides(connection,user):
@@ -136,8 +132,7 @@ def deleteRideFromUser(connection,user):
     driver = rRow['Users:driver']
     rider = rRow['Users:rider']
     job = q.enqueue(remove_rider_from_user, rider, driver, rid)
-    while job.result is None:
-        continue
+
 
 @connect
 def listReviews(connection,user):

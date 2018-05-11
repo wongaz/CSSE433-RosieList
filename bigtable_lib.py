@@ -17,14 +17,10 @@ q = Queue(connection=queue_conn)
 
 def clear():
     job = q.enqueue(remote_clear)
-    while job.result is None:
-        continue
 
 
 def reset():
     job = q.enqueue(remote_reset)
-    while job.result is None:
-        continue
 
 
 @connect
@@ -82,8 +78,7 @@ def add_user(conn):
         print("Must enter an email")
         return
     job =q.enqueue(create_user, user, f_name, l_name, email)
-    while job.result is None:
-        continue
+
 
 
 @connect
@@ -117,8 +112,7 @@ def add_transaction(conn):
         return
 
     job =  q.enqueue(create_transaction, tid, buyer, seller, pid)
-    while job.result is None:
-        continue
+
     if write_transactions(buyer,seller,tid+"|"+buyer+"|"+seller+"|"+pid+"|"+str(datetime.datetime.now()))==1:
         print("Cannot cache transaction right now")
 
@@ -183,11 +177,9 @@ def add_product(conn):
         print("Must enter a price")
         return
     job = q.enqueue(create_product, pid, name, desc, tags, price)
-    while job.result is None:
-        continue
+
     job = q.enqueue(neo4j_lib.add_product, pid, name, desc, tags, price)
-    while job.result is None:
-        continue
+
     if job.result ==1:
         print("Product is not saved in Neo4j")
     if job.result ==2:
@@ -257,8 +249,7 @@ def add_ride(conn):
         print("Must enter a price for the ride")
         return
     job= q.enqueue(create_ride, rid, driver, rider, dest, miles, price)
-    while job.result is None:
-        continue
+
 
 
 @connect
@@ -285,39 +276,6 @@ def display_ride(conn):
     print((row[b'Info:mileage']))
     print("Price:", end=' ')
     print((row[b'Info:price']))
-
-@connect
-def add_review(conn):
-    print('Enter Review ID')
-    rvid = input()
-    if has_row(rvid, review_table,conn):
-        print("Review ID already in database")
-        return
-    if rvid == "":
-        print("Must enter a Review ID")
-        return
-    print('Enter username of Reviewer')
-    patron = input()
-    if not has_row(patron, user_table,conn):
-        print("Reviewer does not exist in database")
-        return
-    print('Enter username of the reviewed')
-    provider = input()
-    if not has_row(provider, user_table,conn):
-        print("Reviewed user does not exist in database")
-        return
-    if patron == provider:
-        print("Reviewer and reviewed cannot be the same")
-        return
-    print('Enter contents of review')
-    contents = input()
-    if contents == "":
-        print("Must enter contents for review")
-        return
-    job = q.enqueue(create_review, rvid, patron, provider, contents)
-    while job.result is None:
-        continue
-
 
 @connect
 def display_review(conn):
@@ -356,14 +314,10 @@ def add_tag(conn):
         print("Must enter name for tag")
         return
     job = q.enqueue(create_tag, tgid, name)
-    while job.result is None:
-        continue
+
 
     job = q.enqueue(neo4j_lib.add_tag, tgid, name)
-    while job.result is None:
-        continue
-    if job.result ==1:
-        print("Tag is not saved in Neo4j")
+
 
 
 
@@ -399,8 +353,6 @@ def addReviewToUser(connection, userName, rid):
     userReviews.append(rid)
     stringReviews = convertArrayToString(userReviews)
     job = q.enqueue(update_user_reviews, userName, stringReviews)
-    while job.result is None:
-        continue
 
 @connect
 def createRide(connection, rid, driver, rider, dest, miles, price):
@@ -408,8 +360,7 @@ def createRide(connection, rid, driver, rider, dest, miles, price):
     job = q.enqueue(table.put(rid, {b'Key:RID': rid,
         b'Users:driver': driver, b'Users:rider': rider,
         b'Info:destination': dest, b'Info:mileage': miles, b'Info:price': price}))
-    while job.result is None:
-        continue
+
 
 
 @connect
@@ -433,8 +384,7 @@ def addRideToUsers(connection, driver, rider, rid):
     stringDriverHistory = convertArrayToString(driverDrives)
     stringRiderHistory = convertArrayToString(riderDrives)
     job = q.enqueue(add_ride_to_users, driver, rider, stringDriverHistory, stringRiderHistory)
-    while job.result is None:
-        continue
+
 
 
 @connect

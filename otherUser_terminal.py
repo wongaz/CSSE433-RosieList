@@ -40,18 +40,10 @@ def editBio(connection, user):
         print("Enter a new last name")
         lName = input()
         job = q.enqueue(edit_bio_name, user, fName, lName)
-        while job.result is None:
-            continue
-        if job.result == 1:
-            print("User was not updated")
     if command == '2':
         print("Enter a new email")
         email = input()
         job = q.enqueue(edit_bio_email, user, email)
-        while job.result is None:
-            continue
-        if job.result == 1:
-            print("User was not updated")
 
 @connect
 def leaveReview(connection, user, loggedInUser):
@@ -70,10 +62,8 @@ def leaveReview(connection, user, loggedInUser):
     if(contents == ""):
         print("Must enter contents for review")
         return
-    job = q.enqueue(create_review(conn, rvid, patron, provider, contents))
-    while job.result is None:
-        continue
-    addReviewToUser(provider, rvid)
+    job = q.enqueue(create_review, rvid, patron, provider, contents)
+    q.enqueue(addReviewToUser, provider, rvid)
 
 @connect
 def registerRide(connection, user, loggedInUser):
@@ -109,8 +99,7 @@ def registerRide(connection, user, loggedInUser):
         print("Must enter a price for the ride")
         return
     job = q.enqueue(create_ride, rid, driver, rider, dest, miles, price)
-    while job.result is None:
-        continue
+
     addRideToUsers(driver, rider, rid) 
     write_history(loggedInUser, 'r' + rid)
     write_history(user, 'r' + rid)  
@@ -157,7 +146,7 @@ def userHubTerminal(connection, user):
         if command == '1':
             table = connection.table(userTable)
             for key, data in table.scan():
-                print("Username: " + key, end=' ')
+                print("Username: ".encode("utf-8") + key, end=' ')
                 print("Name:", end=' ')
                 print((data[b'Bio:fName'] + " ".encode("utf-8") + data[b'Bio:lName']))
         

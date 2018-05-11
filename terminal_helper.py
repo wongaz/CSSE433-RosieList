@@ -19,7 +19,7 @@ q = Queue(connection=queue_conn)
 def convertArrayToString(array):
     result = ""
     for data in array:
-        result = result + "|".encode('utf-8') + data
+        result = result + "|" + data
     return result[1:]
 
 def convertStringToArray(inputString):
