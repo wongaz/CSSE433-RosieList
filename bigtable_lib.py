@@ -177,14 +177,9 @@ def add_product(conn):
     if price == "":
         print("Must enter a price")
         return
-    job = q.enqueue(create_product, pid, name, desc, tags, price)
+    q.enqueue(create_product, pid, name, desc, tags, price)
 
-    job = q.enqueue(neo4j_lib.add_product, pid, name, desc, tags, price)
-
-    if job.result ==1:
-        print("Product is not saved in Neo4j")
-    if job.result ==2:
-        print("At least one tag is not mapped to Product in Neo4j")
+    q.enqueue(neo4j_lib.add_product, pid, name, desc, tags, price)
 
 
 
@@ -314,10 +309,8 @@ def add_tag(conn):
     if name == "":
         print("Must enter name for tag")
         return
-    job = q.enqueue(create_tag, tgid, name)
-
-
-    job = q.enqueue(neo4j_lib.add_tag, tgid, name)
+    q.enqueue(create_tag, tgid, name)
+    q.enqueue(neo4j_lib.add_tag, tgid, name)
 
 
 

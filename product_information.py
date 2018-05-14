@@ -51,7 +51,6 @@ def searchProduct(connection):
 
 @connect
 def editProduct(connection, user):
-    table = connection.table(productTable)
     uTable = connection.table(userTable)
     print("Enter a pid")
     pid = input()
@@ -72,17 +71,20 @@ def editProduct(connection, user):
         print("Enter a new name")
         name = input()
         q.enqueue( edit_product_name, productTable,pid, name)
+        q.enqueue(neo4j_lib.update_product_name(pid,name))
     if command == '2':
         print("Enter a new Description")
         desc = input()
         q.enqueue(edit_product_desc, productTable, pid, desc)
+        q.enqueue(neo4j_lib.update_product_name(pid, desc))
     if command == '3':
         print("Enter a new price")
         price = input()
         q.enqueue(edit_product_price, productTable, pid, price)
+        q.enqueue(neo4j_lib.update_product_name(pid, price))
 
-@connect
-def addProductWithUser(connection, user):
+
+def addProductWithUser( user):
     print('Enter Product ID')
     pid = input()
     if(hasRow(pid, productTable)):
@@ -119,6 +121,7 @@ def addProductWithUser(connection, user):
         print("Must enter a price")
         return
     q.enqueue(createProduct,pid, name, desc, tags, price)
+    q.enqueue(neo4j_lib.add_product(pid,name,desc,tags,price))
     q.enqueue(addProductToUser,user, pid)
 
 def deleteProductWithUser(connection,user):
@@ -142,10 +145,10 @@ def deleteProductWithUser(connection,user):
     for seller in sellerList:
         q.enqueue(removeProductFromUser,seller, pid)
     q.enqueue(deleteProduct,productTable,pid)
+    q.enqueue(neo4j_lib.delete_product,pid)
 
 @connect
 def tagProductInUser(connection,user):
-    table = connection.table(productTable)
     uTable = connection.table(userTable)
     print("Enter a pid")
     pid = input()
@@ -178,6 +181,7 @@ def tagProductInUser(connection,user):
     arrayTags.append(tgid)
     stringTags = convertArrayToString(arrayTags)
     q.enqueue(put_tag, tagTable, pid, stringTags)
+    q.enqueue(neo4j_lib.add_rela,pid,stringTags)
     return 
 
 def createTagWithID(tgid):
@@ -188,6 +192,7 @@ def createTagWithID(tgid):
         if(name == ""):
             print("Must enter name for tag")
     q.enqueue(createTag(tgid, name))
+    q.enqueue(neo4j_lib.add_tag,tgid,name)
 
 @connect
 def buyProduct(connection, user):
@@ -235,6 +240,7 @@ def productTerminal(connection,user):
         print("5 - Delete Product")
         print("6 - Tag Product")
         print("7 - Buy Product")
+        print("8 - Get Recommendations")
         print("q - Return to root menu")
         command = input()
         
@@ -260,6 +266,9 @@ def productTerminal(connection,user):
 
         if command == '7':
             buyProduct(user)
+
+        if command == '8':
+            neo4j_lib.get_recom()
 
         if command == 'q':
             persist = 0

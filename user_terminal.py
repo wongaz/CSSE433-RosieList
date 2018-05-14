@@ -40,6 +40,7 @@ def userTerminal(username):
                 persist = 0
 
 def login():
+    neo4j_lib.get_recom_sys()
     inputUsername = 0
     while inputUsername == 0:
         print('Enter Username (q to return to main menu)')

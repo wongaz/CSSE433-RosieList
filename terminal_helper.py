@@ -183,35 +183,6 @@ def createUser(connection,user, fName, lName, email):
         b'Transactions:tHistory': "", b'Transactions:rHistory': "", 
         b'Transactions:products': "", b'Transactions:reviews': ""})
 
-def addTransaction():   
-    print('Enter Transaction Id')
-    tid = input()
-    if(hasRow(tid, transactionTable)):
-        print("Transaction ID already in database")
-        return
-    if(tid == ""):
-        print("Must enter Transaction Id")
-        return
-    print('Enter username of buyer')
-    buyer = input()
-    if(not hasRow(buyer, userTable)):
-        print("Buyer does not exist in database")
-        return
-    print('Enter username of seller')
-    seller = input()
-    if(not hasRow(seller, userTable)):
-        print("Seller does not exist in database")
-        return
-    if(buyer == seller):
-        print("Buyer and seller cannot be the same")
-        return
-    print('Enter Product ID')
-    pid = input()
-    if(not userHasProduct(seller, pid)):
-        print("Seller does not posses product")
-        return
-    createTransaction(tid, buyer, seller, pid)
-    addTransactionToUsers(buyer, seller, tid)
 @connect
 def createTransaction(connection,tid, buyer, seller, pid):
     table = connection.table(transactionTable)
@@ -219,50 +190,6 @@ def createTransaction(connection,tid, buyer, seller, pid):
         b'Users:buyer': buyer, b'Users:seller': seller, 
         b'Product:PID': pid})
 
-
-def addProduct():
-    print('Enter username of product seller')
-    user = input()
-    if(not hasRow(user, userTable)):
-        print("User does not exist in database")
-        return   
-    print('Enter Product ID')
-    pid = input()
-    if(hasRow(pid, productTable)):
-        print("Product ID already in database")
-        return
-    if(pid == ""):
-        print("Must enter Product ID")
-        return
-    print('Enter name of product')
-    name = input()
-    if(name == ""):
-        print("Must enter product name")
-        return
-    print('Enter description of product')
-    desc = input()
-    if(desc == ""):
-        print("Must enter a description of product")
-        return
-    finishedTags = 0
-    tags = []
-    while (finishedTags != 1):
-        print("Enter a Tag (Leave blank to stop):")
-        tag = input()
-        if(tag == ""):
-            finishedTags = 1
-        else:
-            if(not hasRow(tag, tagTable)):
-                print("Tag does not exist in database")
-            else:
-                tags.append(tag)
-    print('Enter price')
-    price = input()
-    if(price == ""):
-        print("Must enter a price")
-        return
-    createProduct(pid, name, desc, tags, price)
-    addProductToUser(user, pid) 
 
 @connect
 def createProduct(connection, pid, name, desc, tags, price) :
@@ -285,22 +212,6 @@ def printTagArray(connection,tagList):
             tRow = tTable.row(tgid.encode('utf-8'))
             print(tRow[b'Info:name']) + "(Tag ID:".encode("utf-8") + tgid + ")".encode("utf-8") + ",".encode("utf-8"),
         print("")
-
-def addTag():   
-    print('Enter Tag ID')
-    tgid = input()
-    if(hasRow(tgid, tagTable)):
-        print("Tag ID already in database")
-        return
-    if(tgid == ""):
-        print("Must enter a Tag ID")
-        return
-    print('Enter name of tag')
-    name = input()
-    if(name == ""):
-        print("Must enter name for tag")
-        return
-    createTag(tgid, name)
 
 @connect
 def createTag(connection,tgid, name):
