@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="61c83805-a563-49c0-aaa9-e909699ead41" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/local_redis.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RequeueSystem.py" afterPath="$PROJECT_DIR$/RequeueSystem.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/neo4j_lib.py" afterPath="$PROJECT_DIR$/neo4j_lib.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/neo4j_remote.py" afterPath="$PROJECT_DIR$/neo4j_remote.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherUser_terminal.py" afterPath="$PROJECT_DIR$/otherUser_terminal.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/personal_information.py" afterPath="$PROJECT_DIR$/personal_information.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/product_information.py" afterPath="$PROJECT_DIR$/product_information.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/redis_lib.py" afterPath="$PROJECT_DIR$/redis_lib.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/user_terminal.py" afterPath="$PROJECT_DIR$/user_terminal.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/CSSE433_RosieList$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1526351387096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CSSE433_RosieList$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1526354749818" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
@@ -62,7 +55,7 @@
       <file leaf-file-name="redis_lib.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/redis_lib.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
+            <state relative-caret-position="63">
               <caret line="12" column="19" lean-forward="true" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
@@ -95,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="neo4j_lib.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="neo4j_lib.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/neo4j_lib.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="1" column="18" lean-forward="false" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
+            <state relative-caret-position="252">
+              <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -107,11 +100,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RequeueSystem.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RequeueSystem.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RequeueSystem.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="14" column="20" lean-forward="true" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+            <state relative-caret-position="170">
+              <caret line="17" column="21" lean-forward="false" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -207,8 +200,8 @@
         <option value="$PROJECT_DIR$/redis_lib.py" />
         <option value="$PROJECT_DIR$/personal_information.py" />
         <option value="$PROJECT_DIR$/neo4j_remote.py" />
-        <option value="$PROJECT_DIR$/neo4j_lib.py" />
         <option value="$PROJECT_DIR$/RequeueSystem.py" />
+        <option value="$PROJECT_DIR$/neo4j_lib.py" />
       </list>
     </option>
   </component>
@@ -546,7 +539,21 @@
       <option name="project" value="LOCAL" />
       <updated>1526348536012</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="asdsaadsasdas">
+      <created>1526352058513</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1526352058513</updated>
+    </task>
+    <task id="LOCAL-00031" summary="asdsaadsasdas">
+      <created>1526352108780</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1526352108780</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -636,7 +643,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/neo4j_lib.py</url>
-          <line>49</line>
+          <line>51</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
@@ -896,9 +903,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/otherUser_terminal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="140" column="13" lean-forward="true" selection-start-line="140" selection-start-column="13" selection-end-line="140" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/redis_lib.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
+        <state relative-caret-position="63">
           <caret line="12" column="19" lean-forward="true" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
@@ -916,32 +933,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/otherUser_terminal.py">
+    <entry file="file://$PROJECT_DIR$/RequeueSystem.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="140" column="13" lean-forward="true" selection-start-line="140" selection-start-column="13" selection-end-line="140" selection-end-column="13" />
+        <state relative-caret-position="170">
+          <caret line="17" column="21" lean-forward="false" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
           <folding>
-            <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/neo4j_lib.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="18" lean-forward="false" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
+        <state relative-caret-position="252">
+          <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RequeueSystem.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="14" column="20" lean-forward="true" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>

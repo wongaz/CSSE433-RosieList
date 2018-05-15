@@ -32,7 +32,7 @@ while True:
 
         f.seek(0)
         for key in dictionary2.keys():
-            f.write(key+","+dictionary2.get(key))
+            f.write(key+","+dictionary2.get(key)+"\n")
 
         f.truncate()
         f.close()
