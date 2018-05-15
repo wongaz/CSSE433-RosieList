@@ -6,6 +6,8 @@ MAX_ATTEMPTS = 24*60
 
 queue_conn = StrictRedis(host='433-19.csse.rose-hulman.edu', port=6379, db=0)
 q = Queue(connection=queue_conn)
+failed_queue = get_failed_queue(queue_conn)
+failed_queue.empty()
 
 while True:
     failed_queue = get_failed_queue(queue_conn)
@@ -14,7 +16,7 @@ while True:
     print(failed_queue.count)
     with open("Queue_Log.txt", 'r+') as f:
         for line in f:
-            key, val = line.split()
+            [key, val] = line.split(',')
             dictionary[str(key)] = int(val)
 
         for job_id in failed_queue.job_ids:

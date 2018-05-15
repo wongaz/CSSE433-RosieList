@@ -30,6 +30,7 @@ def userTerminal(username):
             userHubTerminal(username)
 
         if command == 'q':
+            clear_history(username)
             persist = 0
         
         

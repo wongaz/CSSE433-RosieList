@@ -5,7 +5,12 @@ from functools import wraps
 def redis_connect(func):
     @wraps(func)
     def function_wrapper(*args, **kwargs):
-        cache_conn = redis.StrictRedis(host='433-17.csse.rose-hulman.edu', port=6379, db=0)
+        try:
+            cache_conn = redis.StrictRedis(host='433-17.csse.rose-hulman.edu', port=6379, db=0)
+            cache_conn.client_getname()
+        except:
+            print("History Server is not unavailable, all the changes you made will not be stored in history section")
+            return 1
         return func(cache_conn, *args, **kwargs)
     return function_wrapper
 
@@ -25,7 +30,11 @@ def write_history(conn,user, item):
 
 @redis_connect
 def read_history(conn,user):
-    return conn.lrange('history:'+user,0,-1)
+    return conn.lrange('history:'+user,0,-1)\
+
+@redis_connect
+def clear_history(conn,user):
+    return conn.delete('history:'+user)
 
 @redis_connect
 def write_transactions(conn,buyer,seller,tr):

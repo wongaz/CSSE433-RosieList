@@ -1,5 +1,5 @@
 from neo4j_remote import *
-
+import collections
 def delete_product(pid):
     product = "p:Product {{ pid:'{0}' }}".format(pid)
     command = "MATCH ({0}) DETACH DELETE p".format(product)
@@ -65,9 +65,10 @@ def get_recom_sys():
     command = "match (n:Product) -[r:Have]-(t:Tag)-[r2:Have]-(n2:Product) where n.pid='{}' return n2.pid".format(pid)
     result = run_command(command)
     ls = []
-    for record in result:
-        ls.append(record['n2.pid'])
-    if len(ls)>0:
-        print("System Recommendations:")
-        print(ls)
+    if isinstance(result, collections.Iterable):
+        for record in result:
+            ls.append(record['n2.pid'])
+        if len(ls)>0:
+            print("System Recommendations:")
+            print(ls)
 

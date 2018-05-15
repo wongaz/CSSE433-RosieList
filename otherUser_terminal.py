@@ -1,7 +1,4 @@
 from __future__ import print_function
-from terminal_helper import *
-from local_redis import *
-from bigtable_helper import *
 from bigtable_lib import *
 from bigtable_remote import *
 

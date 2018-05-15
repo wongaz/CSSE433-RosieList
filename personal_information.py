@@ -1,8 +1,8 @@
 from  bigtable_helper import *
 from  bigtable_lib import *
-from  local_redis import *
 from  redis_lib import *
 from  terminal_helper import *
+import collections
 
 userTable = 'Rosie-List-Users'
 transactionTable = 'Rosie-List-Transactions'
@@ -188,8 +188,9 @@ def personalTerminal(user):
 
         if command == '8':
             history = read_history(user)
-            for data in history:
-                print(data)
+            if isinstance(history, collections.Iterable):
+                for data in history:
+                    print(data)
 
         if command == 'q':
             persist = 0

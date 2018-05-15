@@ -1,7 +1,6 @@
 import pickle
 
 from  bigtable_lib import *
-from  local_redis import *
 from  redis_lib import *
 
 from terminal_helper import *
