@@ -22,6 +22,7 @@ def remote_clear(conn):
         conn.delete_table(review_table)
     if has_table(tag_table, conn):
         conn.delete_table(tag_table)
+    return 0
 
 
 @connect

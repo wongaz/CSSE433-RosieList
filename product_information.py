@@ -71,17 +71,17 @@ def editProduct(connection, user):
         print("Enter a new name")
         name = input()
         q.enqueue( edit_product_name, productTable,pid, name)
-        q.enqueue(neo4j_lib.update_product_name(pid,name))
+        q.enqueue(neo4j_lib.update_product_name,pid,name)
     if command == '2':
         print("Enter a new Description")
         desc = input()
         q.enqueue(edit_product_desc, productTable, pid, desc)
-        q.enqueue(neo4j_lib.update_product_name(pid, desc))
+        q.enqueue(neo4j_lib.update_product_desc,pid, desc)
     if command == '3':
         print("Enter a new price")
         price = input()
         q.enqueue(edit_product_price, productTable, pid, price)
-        q.enqueue(neo4j_lib.update_product_name(pid, price))
+        q.enqueue(neo4j_lib.update_product_price,pid, price)
 
 
 def addProductWithUser( user):
