@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="61c83805-a563-49c0-aaa9-e909699ead41" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/product_information.py" afterPath="$PROJECT_DIR$/product_information.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/terminal_helper.py" afterPath="$PROJECT_DIR$/terminal_helper.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/user_terminal.py" afterPath="$PROJECT_DIR$/user_terminal.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,8 +19,8 @@
       <file leaf-file-name="product_information.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/product_information.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="168" column="69" lean-forward="false" selection-start-line="168" selection-start-column="69" selection-end-line="168" selection-end-column="69" />
+            <state relative-caret-position="193">
+              <caret line="169" column="27" lean-forward="false" selection-start-line="169" selection-start-column="27" selection-end-line="169" selection-end-column="27" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -449,7 +447,14 @@
       <option name="project" value="LOCAL" />
       <updated>1526346300727</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Merge branch 'FrontP2' of https://github.com/wongaz/CSSE433-RosieList into FrontP2&#10;&#10;# Conflicts:&#10;#&#9;product_information.py">
+      <created>1526346430742</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1526346430742</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -509,7 +514,8 @@
     <MESSAGE value="fix" />
     <MESSAGE value="add neo4j untested" />
     <MESSAGE value="fml" />
-    <option name="LAST_COMMIT_MESSAGE" value="fml" />
+    <MESSAGE value="Merge branch 'FrontP2' of https://github.com/wongaz/CSSE433-RosieList into FrontP2&#10;&#10;# Conflicts:&#10;#&#9;product_information.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'FrontP2' of https://github.com/wongaz/CSSE433-RosieList into FrontP2&#10;&#10;# Conflicts:&#10;#&#9;product_information.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -813,8 +819,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/product_information.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="168" column="69" lean-forward="false" selection-start-line="168" selection-start-column="69" selection-end-line="168" selection-end-column="69" />
+        <state relative-caret-position="193">
+          <caret line="169" column="27" lean-forward="false" selection-start-line="169" selection-start-column="27" selection-end-line="169" selection-end-column="27" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
