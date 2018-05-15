@@ -121,7 +121,7 @@ def addProductWithUser( user):
         print("Must enter a price")
         return
     q.enqueue(createProduct,pid, name, desc, tags, price)
-    q.enqueue(neo4j_lib.add_product(pid,name,desc,tags,price))
+    q.enqueue(neo4j_lib.add_product,pid,name,desc,tags,price)
     q.enqueue(addProductToUser,user, pid)
 
 def deleteProductWithUser(connection,user):
@@ -165,7 +165,7 @@ def tagProductInUser(connection,user):
     if command == 'y':
         table = connection.table(tagTable)
         for key, data in table.scan():
-            print("Tag: ".encode("utf-8") + data['Info:name'] + "ID: ".encode("utf-8") + key)
+            print("Tag: ".encode("utf-8") + data[b'Info:name'] + " ID: ".encode("utf-8") + key)
     print('Enter a Tag ID')
     tgid = input()
     if(not hasRow(tgid, tagTable)):
