@@ -166,7 +166,7 @@ def tagProductInUser(connection, user):
     if command == 'y':
         table = connection.table(tagTable)
         for key, data in table.scan():
-            print("Tag: ".encode("utf-8") + data['Info:name'] + "ID: ".encode("utf-8") + key)
+            print("Tag: ".encode("utf-8") + data[b'Info:name'] + "ID: ".encode("utf-8") + key)
     print('Enter a Tag ID')
     tgid = input()
     if(not hasRow(tgid, tagTable)):
@@ -181,7 +181,7 @@ def tagProductInUser(connection, user):
     arrayTags = convertStringToArray(row[b'Tags:tags'])
     arrayTags.append(tgid)
     stringTags = convertArrayToString(arrayTags)
-    q.enqueue(put_tag, tagTable, pid, stringTags)
+    q.enqueue(put_tag, productTable, pid, stringTags)
     q.enqueue(neo4j_lib.add_rela,pid,stringTags)
     return 
 
