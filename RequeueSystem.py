@@ -16,8 +16,8 @@ while True:
     print(failed_queue.count)
     with open("Queue_Log.txt", 'r+') as f:
         for line in f:
-            [key, val] = line.split(',')
-            dictionary[str(key)] = int(val)
+            temp = line.split(',')
+            dictionary[str(temp[0])] = int(temp[1])
 
         for job_id in failed_queue.job_ids:
             if job_id in dictionary.keys():
