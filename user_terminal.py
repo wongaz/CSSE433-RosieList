@@ -62,6 +62,7 @@ while(persist == 1):
     print("Enter a command:")
     print("1 - Login")
     print("2 - Create user")
+    print("3 - Reset")
     print("q - Quit")
     command = input()
     if command == '1':
@@ -69,6 +70,9 @@ while(persist == 1):
     
     if command == '2':
         createAccount()
+
+    if command == '3':
+        reset()
 
     if command == 'q':
         persist = 0

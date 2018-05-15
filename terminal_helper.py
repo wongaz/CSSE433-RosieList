@@ -207,16 +207,17 @@ def printTagArray(connection,tagList):
     if(len(tagList) == 0):
         print(attribute + ": None")
     else:
-        print(attribute + ":".encode('utf-8'),)
+        print(attribute + ":",)
         for tgid in tagList:
             tRow = tTable.row(tgid.encode('utf-8'))
-            print(tRow[b'Info:name']) + "(Tag ID:".encode("utf-8") + tgid + ")".encode("utf-8") + ",".encode("utf-8"),
+            print (tgid)
+            print ((tRow[b'Info:name']) + "(Tag ID:".encode("utf-8") + tgid.encode("utf-8") + ")".encode("utf-8") + ",".encode("utf-8"))
         print("")
 
 @connect
 def createTag(connection,tgid, name):
     table = connection.table(tagTable)
-    table.put(tgid, {b'Key:TGID': tgid, 
+    table.put(tgid, {b'Key:TGID': tgid,
         b'Info:name': name})
 
 
@@ -225,7 +226,7 @@ def createTag(connection,tgid, name):
 def addProductToUser(connection,userName, pid):
     if(not hasRow(userName, userTable)):
         print("User does not exist in database")
-        return   
+        return
     if(not hasRow(pid, productTable)):
         print("Product does not exist in database")
         return

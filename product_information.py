@@ -121,10 +121,11 @@ def addProductWithUser( user):
         print("Must enter a price")
         return
     q.enqueue(createProduct,pid, name, desc, tags, price)
-    q.enqueue(neo4j_lib.add_product(pid,name,desc,tags,price))
+    q.enqueue(neo4j_lib.add_product, pid, name, desc, tags, price)
     q.enqueue(addProductToUser,user, pid)
 
-def deleteProductWithUser(connection,user):
+@connect
+def deleteProductWithUser(connection, user):
     table = connection.table(productTable)
     uTable = connection.table(userTable)
     print("Enter a pid")
@@ -148,7 +149,7 @@ def deleteProductWithUser(connection,user):
     q.enqueue(neo4j_lib.delete_product,pid)
 
 @connect
-def tagProductInUser(connection,user):
+def tagProductInUser(connection, user):
     uTable = connection.table(userTable)
     print("Enter a pid")
     pid = input()
@@ -191,7 +192,7 @@ def createTagWithID(tgid):
         name = input()
         if(name == ""):
             print("Must enter name for tag")
-    q.enqueue(createTag(tgid, name))
+    q.enqueue(createTag, tgid, name)
     q.enqueue(neo4j_lib.add_tag,tgid,name)
 
 @connect
