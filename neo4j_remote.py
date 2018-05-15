@@ -16,10 +16,7 @@ def neo4j_connect(func):
 
 @neo4j_connect
 def run_command(session, command):
-    try:
-        return session.run(command)
-    except:
-        print("Neo4J is not available, but all the changes will be made once its up")
-        return 1
+    return session.run(command)
+
 
 
