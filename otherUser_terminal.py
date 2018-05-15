@@ -123,7 +123,20 @@ def registerRide(connection, user, loggedInUser):
 
     addRideToUsers(driver, rider, rid) 
     write_history(loggedInUser, 'r' + rid)
-    write_history(user, 'r' + rid)  
+    write_history(user, 'r' + rid)
+
+@connect
+def searchUser(connection):
+    print('Enter Last Name to search')
+    name = input()
+    table = connection.table(userTable)
+    count = 1
+    for key, data in table.scan():
+        if name.encode("utf-8") == data[b'Bio:lName']:
+            print("")
+            print("Match " + str(count))
+            displayUser(key.decode('utf-8'))
+            count = count + 1
 
 @connect
 def otherUserTerminal(connection, user, loggedInUser):
@@ -165,6 +178,7 @@ def userHubTerminal(connection, user):
         print("Enter a command:")
         print("1 - List users")
         print("2 - Visit user page")
+        print("3 - Search for user by last name")
         print("q - Return to root menu")
         command = input()
 
@@ -186,6 +200,9 @@ def userHubTerminal(connection, user):
                     print("Already logged in as " + user)
                 else:
                     otherUserTerminal(otherUsername, user)
+
+        if command == '3':
+            searchUser()
 
         if command == 'q':
             persist = 0
