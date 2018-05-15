@@ -46,8 +46,8 @@ def add_tag(tgid,name):
     return 1
 
 def add_rela(pid,tags):
-    for tag in tags:
-        c = "MATCH (a:Product),(b:Tag) WHERE a.pid = '{}' AND b.tgid = '{}' CREATE (a)-[r:Have]->(b) RETURN type(r)".format(pid,tag)
+    for tag in tags.split('|'):
+        c = "MATCH (a:Product),(b:Tag) WHERE a.pid = '{0}' AND b.tgid = '{1}' MERGE (a)-[r:Have]->(b) RETURN type(r)".format(pid,tag)
         run_command(c)
 
 def get_recom():
