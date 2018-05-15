@@ -128,8 +128,8 @@ def deleteRideFromUser(connection,user):
         print("Ride does not involve this user, cannot be deleted")
         return
     rRow = table.row(rid.encode('utf-8'))
-    driver = rRow['Users:driver']
-    rider = rRow['Users:rider']
+    driver = rRow[b'Users:driver']
+    rider = rRow[b'Users:rider']
     job = q.enqueue(remove_rider_from_user, rider, driver, rid)
 
 

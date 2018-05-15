@@ -30,6 +30,25 @@ def displayUser(connection, user):
     printReviewArray(reviews)
 
 @connect
+def listReviews(connection,user):
+    uTable = connection.table(userTable)
+    uRow = uTable.row(user.encode('utf-8'))
+    reviews = convertStringToArray(uRow[b'Transactions:reviews'])
+    table = connection.table(reviewTable)
+    for rvid in reviews:
+        row = table.row(rvid.encode('utf-8'))
+        print("")
+        print("Review ID:", end=' ')
+        print((row[b'Key:RVID']))
+        print("Reviewer Username:", end=' ')
+        print((row[b'Users:reviewer']))
+        print("Reviewed Username:", end=' ')
+        print((row[b'Users:reviewed']))
+        print("Review Contents:", end=' ')
+        print((row[b'Info:contents']))
+
+
+@connect
 def editBio(connection, user):
     table = connection.table(userTable)
     print("Select a field to edit:")
@@ -115,6 +134,7 @@ def otherUserTerminal(connection, user, loggedInUser):
         print("1 - Print Bio")
         print("2 - Leave Review")
         print("3 - Register ride")
+        print("4 - List reviews")
         print("q - Return to user hub menu")
         command = input()
         if command == '1':
@@ -125,6 +145,9 @@ def otherUserTerminal(connection, user, loggedInUser):
 
         if command == '3':
             registerRide(user, loggedInUser)
+
+        if command == '4':
+            listReviews(user)
 
         if command == 'q':
             persist = 0
