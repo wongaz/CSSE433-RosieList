@@ -268,7 +268,10 @@ def productTerminal(connection,user):
             buyProduct(user)
 
         if command == '8':
-            neo4j_lib.get_recom()
+            try:
+                neo4j_lib.get_recom()
+            except:
+                print("Neo4J is not available, but all the changes will be made once its up")
 
         if command == 'q':
             persist = 0
