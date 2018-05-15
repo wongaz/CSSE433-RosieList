@@ -45,7 +45,6 @@ def login():
         neo4j_lib.get_recom_sys()
     except:
         print("Neo4J is not available, but all the changes will be made once its up")
-        return 1
     inputUsername = 0
     while inputUsername == 0:
         print('Enter Username (q to return to main menu)')
