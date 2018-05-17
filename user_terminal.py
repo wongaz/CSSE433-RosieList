@@ -51,6 +51,9 @@ def login():
         user = input()
         if user == 'q':
             return
+        if user == '':
+            print("Cannot enter blank input")
+            return
         if(not hasRow(user, userTable)):
             print("Username not in database")
         else:
