@@ -44,14 +44,22 @@ def editBio(connection, user):
     if command == '1':
         print("Enter a new first name")
         fName = input()
+        if fName == '':
+            print("Cannot put a blank name")
+            return
         print("Enter a new last name")
         lName = input()
-
+        if lName == '':
+            print("Cannot put a blank name")
+            return
         q.enqueue(edit_bio_name,user,fName,lName)
 
     if command == '2':
         print("Enter a new email")
         email = input()
+        if email == '':
+            print("Cannot put a blank email")
+            return
         q.enqueue(edit_bio_email, user, email)
 
 @connect
@@ -78,8 +86,11 @@ def deleteTransactionFromUser(connection, user):
     uTable = connection.table(userTable)
     print("Enter a tid")
     tid = input()
+    if tid == '':
+        print("Must enter a string")
+        return
     if(not hasRow(tid, transactionTable)):
-        print("Rid eID not in database")
+        print("TID not in database")
         return
     row = uTable.row(user.encode('utf-8'))
     userTransactions = convertStringToArray(row[b'Transactions:tHistory'])
@@ -119,6 +130,9 @@ def deleteRideFromUser(connection,user):
     uTable = connection.table(userTable)
     print("Enter a rid")
     rid = input()
+    if rid == '':
+        print("Must enter a string")
+        return
     if(not hasRow(rid, rideTable)):
         print("Ride ID not in database")
         return

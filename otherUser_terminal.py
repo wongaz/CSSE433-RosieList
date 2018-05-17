@@ -67,6 +67,9 @@ def editBio(connection, user):
 def leaveReview(connection, user, loggedInUser):
     print('Enter Review ID')
     rvid = input()
+    if rvid == "":
+        print("Must enter a review ID")
+        return
     if(hasRow(rvid, reviewTable)):
         print("Review ID already in database")
         return
@@ -87,13 +90,13 @@ def leaveReview(connection, user, loggedInUser):
 def registerRide(connection, user, loggedInUser):
     print('Enter Ride ID')
     rid = input()
+    if (rid == ""):
+        print("Must enter a Ride ID")
+        return
     if(hasRow(rid, rideTable)):
         print("Ride ID already in database")
         return
-    if(rid == ""):
-        print("Must enter a Ride ID")
-        return
-    print('Are you a driver(d) or passenger(p)')
+    print('Are you a driver(d) or passenger(P)')
     command = input()
     if(command == 'd'):
         rider = user
@@ -111,10 +114,22 @@ def registerRide(connection, user, loggedInUser):
     if(miles == ""):
         print("Must enter a mileage for ride")
         return
+    if not miles.isdigit():
+        print("Miles must be a number")
+        return
+    if int(miles) < 0:
+        print("Miles must be a positive number")
+        return
     print('Enter the price of the ride')
     price = input()
     if(price == ""):
         print("Must enter a price for the ride")
+        return
+    if not price.isdigit():
+        print("Price must be a number")
+        return
+    if int(price) < 0:
+        print("Price must be a positive number")
         return
     job = q.enqueue(create_ride, rid, driver, rider, dest, miles, price)
 
@@ -190,6 +205,9 @@ def userHubTerminal(connection, user):
             table = connection.table(userTable)
             print('Enter Username')
             otherUsername = input()
+            if otherUsername == "":
+                print("Must enter a username")
+                return
             if(not hasRow(otherUsername, userTable)):
                 print("Username not in database")
             else:

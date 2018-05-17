@@ -102,17 +102,17 @@ def printTransactionArray(connection, transactionList, userId):
             state = ""
             otherState = ""
 
-            if buyerId == userId:
+            if buyerId.decode("utf-8") == userId:
                 state = "User was Buyer, "
                 otherState = "Seller: ".encode("utf-8") + sellerRow[b'Bio:fName'] + " ".encode("utf-8") + sellerRow[b'Bio:lName']
 
-            if sellerId == userId:
+            if sellerId.decode("utf-8") == userId:
                 state = "User was Seller, "
                 otherState = "Buyer: ".encode("utf-8") + buyerRow[b'Bio:fName'] + " ".encode("utf-8") + buyerRow[b'Bio:lName']
 
             productName = pRow[b'Info:name']
 
-            print("[".encode("utf-8") + state.encode("utf-8") + " ".encode("utf-8") + otherState.encode("utf-8") + ", Product Name: ".encode("utf-8") + productName + ", Product ID: ".encode("utf-8") + pid + ", Transaction ID: ".encode("utf-8") + tid.encode('utf-8') + "]".encode("utf-8"))
+            print("[".encode("utf-8") + state.encode("utf-8") + " ".encode("utf-8") + otherState + ", Product Name: ".encode("utf-8") + productName + ", Product ID: ".encode("utf-8") + pid + ", Transaction ID: ".encode("utf-8") + tid.encode('utf-8') + "]".encode("utf-8"))
         print("")
 
 @connect
@@ -137,15 +137,15 @@ def printRideArray(connection,rideList, userId):
             state = ""
             otherState = ""
 
-            if driverId == userId:
+            if driverId.decode("utf-8") == userId:
                 state = "User was Driver, "
                 otherState = "Rider: ".encode("utf-8") + riderRow[b'Bio:fName'] + " ".encode("utf-8") + riderRow[b'Bio:lName']
 
-            if riderId == userId:
+            if riderId.decode("utf-8") == userId:
                 state = "User was Rider, "
                 otherState = "Driver: ".encode("utf-8") + driverRow[b'Bio:fName'] + " ".encode("utf-8") + driverRow[b'Bio:lName']
 
-            print("[".encode("utf-8") + state.encode("utf-8") + " ".encode("utf-8") + otherState.encode("utf-8") + ", Destination: ".encode("utf-8") + destination + ", Ride ID: ".encode("utf-8") + rid.encode("utf-8") + "]".encode("utf-8"))
+            print("[".encode("utf-8") + state.encode("utf-8") + " ".encode("utf-8") + otherState + ", Destination: ".encode("utf-8") + destination + ", Ride ID: ".encode("utf-8") + rid.encode("utf-8") + "]".encode("utf-8"))
         print("")
 
 

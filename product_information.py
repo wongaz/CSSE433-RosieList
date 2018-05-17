@@ -53,6 +53,9 @@ def editProduct(connection, user):
     uTable = connection.table(userTable)
     print("Enter a pid")
     pid = input()
+    if pid == '':
+        print("Must enter an id to edit")
+        return
     if(not hasRow(pid, productTable)):
         print("Product ID not in database")
         return
@@ -69,16 +72,31 @@ def editProduct(connection, user):
     if command == '1':
         print("Enter a new name")
         name = input()
+        if name == '':
+            print("Cannot put a blank name")
+            return
         q.enqueue( edit_product_name, productTable,pid, name)
         q.enqueue(neo4j_lib.update_product_name,pid,name)
     if command == '2':
         print("Enter a new Description")
         desc = input()
+        if desc == '':
+            print("Cannot put a blank description")
+            return
         q.enqueue(edit_product_desc, productTable, pid, desc)
         q.enqueue(neo4j_lib.update_product_desc,pid, desc)
     if command == '3':
         print("Enter a new price")
         price = input()
+        if price == '':
+            print("Cannot put a blank price")
+            return
+        if not price.isdigit():
+            print("Must enter a number")
+            return
+        if int(price) < 0:
+            print("Price must be a positive number")
+            return
         q.enqueue(edit_product_price, productTable, pid, price)
         q.enqueue(neo4j_lib.update_product_price,pid, price)
 
@@ -86,11 +104,11 @@ def editProduct(connection, user):
 def addProductWithUser( user):
     print('Enter Product ID')
     pid = input()
+    if (pid == ""):
+        print("Must enter Product ID")
+        return
     if(hasRow(pid, productTable)):
         print("Product ID already in database")
-        return
-    if(pid == ""):
-        print("Must enter Product ID")
         return
     print('Enter name of product')
     name = input()
@@ -119,6 +137,12 @@ def addProductWithUser( user):
     if(price == ""):
         print("Must enter a price")
         return
+    if not price.isdigit():
+        print("Must enter a number")
+        return
+    if int(price) < 0:
+        print("Price must be a positive number")
+        return
     q.enqueue(createProduct,pid, name, desc, tags, price)
     q.enqueue(neo4j_lib.add_product, pid, name, desc, tags, price)
     q.enqueue(addProductToUser,user, pid)
@@ -129,6 +153,9 @@ def deleteProductWithUser(connection, user):
     uTable = connection.table(userTable)
     print("Enter a pid")
     pid = input()
+    if pid == '':
+        print("Cannot enter blank pid")
+        return
     if(not hasRow(pid, productTable)):
         print("Product ID not in database")
         return
@@ -139,7 +166,7 @@ def deleteProductWithUser(connection, user):
         return
     arrayOfTransactions = productInTransaction(pid)
     if(not (len(arrayOfTransactions) == 0)):
-        print("Can't delete product, used in transaction " + arrayOfTransactions[0])
+        print("Can't delete product, used in transaction ",  arrayOfTransactions[0])
         return
     sellerList = productInUser(pid)
     for seller in sellerList:
@@ -152,6 +179,9 @@ def tagProductInUser(connection, user):
     uTable = connection.table(userTable)
     print("Enter a pid")
     pid = input()
+    if (pid == ""):
+        print("Must enter Product ID")
+        return
     if(not hasRow(pid, productTable)):
         print("Product ID not in database")
         return
@@ -168,6 +198,9 @@ def tagProductInUser(connection, user):
             print("Tag: ".encode("utf-8") + data[b'Info:name'] + "ID: ".encode("utf-8") + key)
     print('Enter a Tag ID')
     tgid = input()
+    if (tgid == ""):
+        print("Must enter Tag ID")
+        return
     if(not hasRow(tgid, tagTable)):
         print("Tag ID does note exist in database")
         print("Would you like to create a new tag (Y/n)?")
@@ -201,6 +234,9 @@ def buyProduct(connection, user):
     uRow = uTable.row(user.encode('utf-8'))
     print("Enter a pid")
     pid = input()
+    if (pid == ""):
+        print("Must enter Product ID")
+        return
     row = table.row(pid.encode('utf-8'))
     if(not hasRow(pid, productTable)):
         print("Product ID not in database")
@@ -220,6 +256,7 @@ def buyProduct(connection, user):
         tid = input()
         if(tid == ""):
             print("Must enter Transaction Id")
+            return
         if(hasRow(tid, transactionTable)):
             print("Transaction ID already in database")
             tid = ""

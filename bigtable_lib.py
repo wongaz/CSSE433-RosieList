@@ -24,7 +24,10 @@ def reset():
     job = q.enqueue(remote_clear)
     while job.result is None:
         continue
-    q.enqueue(remote_reset)
+    job2 = q.enqueue(remote_reset)
+    while job2.result is None:
+        continue
+    print("Reset Complete")
 
 
 @connect
